@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sovereign Core OS v10.1</title>
+    <title>Sovereign Core OS v11.0</title>
     <style>
         :root {
             --quantum-cyan: #00f0ff;
@@ -37,7 +37,7 @@
             overflow-x: hidden;
         }
 
-        /* Sci-Fi Grid Overlay Background Effect */
+        /* Sci-Fi Grid Background */
         body::before {
             content: " ";
             position: fixed;
@@ -49,24 +49,24 @@
             pointer-events: none;
         }
 
-        /* Quantum System Banner */
+        /* System Alert Header */
         .system-banner {
             width: 100%;
             max-width: 440px;
-            background: linear-gradient(90deg, transparent, rgba(255, 42, 95, 0.15), transparent);
-            border-top: 1px solid var(--plasma-red);
-            border-bottom: 1px solid var(--plasma-red);
-            color: var(--plasma-red);
+            background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.15), transparent);
+            border-top: 1px solid var(--quantum-cyan);
+            border-bottom: 1px solid var(--quantum-cyan);
+            color: var(--quantum-cyan);
             padding: 6px;
             text-align: center;
             font-size: 0.65rem;
             font-weight: bold;
             letter-spacing: 4px;
             margin-bottom: 20px;
-            text-shadow: 0 0 8px var(--plasma-red);
+            text-shadow: 0 0 8px var(--quantum-cyan);
         }
 
-        /* Header Architecture */
+        /* Main Header Architecture */
         .header-mainframe {
             width: 100%;
             max-width: 440px;
@@ -76,7 +76,7 @@
         }
 
         .header-mainframe::before {
-            content: "CORE LINK STABLE";
+            content: "BIOMETRIC LINK ONLINE";
             position: absolute;
             top: -15px; left: 50%; transform: translateX(-50%);
             font-size: 0.55rem; color: #4b5f88; letter-spacing: 2px;
@@ -98,7 +98,7 @@
             margin-top: 4px;
         }
 
-        /* Main Neural Pod Card */
+        /* Central Performance Module Pod */
         .neural-pod {
             width: 100%;
             max-width: 440px;
@@ -112,73 +112,81 @@
             position: relative;
         }
 
-        /* Tech Bracket Corners */
-        .neural-pod::after {
-            content: ""; position: absolute; top: -1px; right: 20px; width: 40px; height: 1px; background: var(--quantum-cyan); box-shadow: 0 0 8px var(--quantum-cyan);
-        }
-
+        /* Replacing Image Layer with a Pure Future Tech Hologram Node */
         .biometric-frame {
             width: 100%;
-            height: 480px; 
+            height: 160px; 
             border-radius: 10px;
-            overflow: hidden;
             position: relative;
             margin-bottom: 20px;
-            border: 1px solid rgba(75, 95, 136, 0.4);
-            background: #000;
+            border: 1px dashed rgba(0, 240, 255, 0.3);
+            background: linear-gradient(180deg, rgba(6, 10, 19, 0.9) 0%, rgba(2, 4, 8, 0.4) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
         }
 
-        /* Holographic Scanlines Overlay */
         .biometric-frame::before {
             content: " ";
             display: block;
             position: absolute;
             top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 240, 255, 0.12) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-            z-index: 2;
-            background-size: 100% 4px, 6px 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 240, 255, 0.06) 50%);
+            z-index: 1;
+            background-size: 100% 4px;
             pointer-events: none;
         }
 
-        .profile-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: contrast(1.1) brightness(0.85) saturate(1.1);
+        .hologram-pulse-circle {
+            width: 60px;
+            height: 60px;
+            border: 2px solid var(--quantum-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--quantum-cyan);
+            animation: pulseWave 2s infinite ease-in-out;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        @keyframes pulseWave {
+            0% { transform: scale(0.95); opacity: 0.7; box-shadow: 0 0 10px var(--quantum-cyan); }
+            50% { transform: scale(1.05); opacity: 1; box-shadow: 0 0 25px var(--quantum-cyan), 0 0 40px rgba(0, 240, 255, 0.2); }
+            100% { transform: scale(0.95); opacity: 0.7; box-shadow: 0 0 10px var(--quantum-cyan); }
         }
 
         .level-overlay {
             position: absolute;
-            top: 15px;
-            left: 15px;
+            top: 12px;
+            left: 12px;
             background: rgba(2, 4, 8, 0.9);
             border-left: 3px solid var(--quantum-cyan);
-            padding: 6px 16px;
+            padding: 4px 12px;
             font-weight: 900;
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             color: #fff;
             text-shadow: 0 0 8px var(--quantum-cyan);
-            z-index: 3;
         }
 
         .rank-overlay {
             position: absolute;
-            bottom: 15px;
-            right: 15px;
-            background: linear-gradient(135deg, rgba(188, 63, 247, 0.45), rgba(2, 4, 8, 0.95));
+            bottom: 12px;
+            right: 12px;
+            background: rgba(2, 4, 8, 0.85);
             border: 1px solid var(--singularity-purple);
-            padding: 6px 14px;
+            padding: 4px 10px;
             border-radius: 2px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: bold;
             color: #f3e8ff;
             text-shadow: 0 0 6px var(--singularity-purple);
-            z-index: 3;
-            text-align: right;
-            max-width: 75%;
         }
 
-        /* Quantum Sync Progress Bar */
+        /* Core Synchronization Progress Wrapper */
         .sync-container {
             margin-bottom: 20px;
         }
@@ -205,7 +213,7 @@
             transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* Attribute Ability Matrix Nodes */
+        /* Attribute Matrix Nodes */
         .attribute-matrix {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -233,7 +241,6 @@
             font-size: 1.2rem;
             font-weight: bold;
             color: #ffffff;
-            text-shadow: 0 0 5px rgba(255,255,255,0.1);
         }
 
         /* Mission Controller Engine Box */
@@ -245,7 +252,6 @@
             border-radius: 16px;
             padding: 20px;
             margin-bottom: 25px;
-            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.01);
         }
 
         .panel-header-tag {
@@ -257,21 +263,20 @@
             padding-bottom: 6px;
         }
 
-        /* Intensity Configurator Console */
+        /* Intensity Selector Module */
         .intensity-console {
             background: rgba(0, 240, 255, 0.03);
             border: 1px solid rgba(0, 240, 255, 0.15);
             border-radius: 8px;
             padding: 14px;
             margin-bottom: 20px;
-            position: relative;
         }
 
         .console-meta {
             display: flex;
             justify-content: space-between;
             font-size: 0.65rem;
-            font-weight: 1000;
+            font-weight: bold;
             color: var(--quantum-cyan);
             margin-bottom: 10px;
         }
@@ -286,7 +291,7 @@
             outline: none;
         }
 
-        /* Holographic Mission List Nodes */
+        /* Mission Nodes Layout */
         .neural-task-node {
             background: rgba(2, 4, 8, 0.4);
             border: 1px solid rgba(75, 95, 136, 0.2);
@@ -303,7 +308,6 @@
         .neural-task-node:hover {
             border-color: rgba(0, 240, 255, 0.5);
             background: rgba(0, 240, 255, 0.02);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.05);
         }
 
         .neural-task-node.secured {
@@ -311,17 +315,8 @@
             background: rgba(0, 255, 163, 0.02);
         }
 
-        /* Specific style rule for study task variant coloring */
-        #task-study {
-            border-left: 2px solid var(--amber-warn);
-        }
-        #task-study:hover {
-            border-color: var(--amber-warn);
-            box-shadow: 0 0 15px rgba(251, 191, 36, 0.1);
-        }
-        #task-study.secured {
-            border-color: rgba(0, 255, 163, 0.3);
-        }
+        #task-study { border-left: 2px solid var(--amber-warn); }
+        #task-study:hover { border-color: var(--amber-warn); }
 
         .task-title-line {
             font-size: 0.85rem;
@@ -375,20 +370,17 @@
         .btn-ambient:hover {
             background: rgba(255, 255, 255, 0.03);
             color: #ffffff;
-            border-color: #768eb2;
         }
 
         .btn-destruct {
             background: rgba(255, 42, 95, 0.05);
             border: 1px solid rgba(255, 42, 95, 0.3);
             color: var(--plasma-red);
-            text-shadow: 0 0 5px rgba(255, 42, 95, 0.2);
         }
 
         .btn-destruct:hover {
             background: rgba(255, 42, 95, 0.15);
             border-color: var(--plasma-red);
-            box-shadow: 0 0 15px rgba(255, 42, 95, 0.15);
         }
 
         @keyframes singularityFlash {
@@ -403,33 +395,30 @@
 </head>
 <body>
 
-    <!-- SYSTEM ALERTS -->
     <div class="system-banner">
-        // NEURAL CONSTRUCT ACTIVE: SINGULARITY MODE
+        // LIFELONG PERFORMANCE HUB ACTIVE
     </div>
 
-    <!-- HEADER -->
     <div class="header-mainframe">
         <h1 class="main-title">
-            QUANTUM SYSTEM EVOLUTION:
-            <span class="neon-blue-text">MONARCH GENERATION</span>
+            REAL-WORLD ARCHITECTURE:
+            <span class="neon-blue-text">PERSONAL EVOLUTION CORE</span>
         </h1>
     </div>
 
-    <!-- MAIN DISPLAY POD CARD -->
+    <!-- MAIN DISPLAY CORE MODULE -->
     <div id="main-pod" class="neural-pod">
         <div class="biometric-frame">
-            <!-- Framed Portrait referencing 1000642150.jpg verbatim -->
-            <img src="1000642150.jpg" class="profile-img" alt="Shadow Monarch Biometrics">
+            <div class="hologram-pulse-circle">⚡</div>
+            <div style="font-size: 0.6rem; color: #768eb2; text-transform: uppercase; letter-spacing: 2px;">Core Sync Scanning</div>
             
             <div id="display-lv" class="level-overlay">LV. 1</div>
-            <div id="display-rank" class="rank-overlay">LOADING TIER...</div>
+            <div id="display-rank" class="rank-overlay">LOADING RANK INDEX...</div>
         </div>
 
-        <!-- Experience Synchronization Engine -->
         <div class="sync-container">
             <div class="sync-label-row">
-                <span>NEURAL CORE INTEGRATION</span>
+                <span>SYSTEM SYNCHRONIZATION</span>
                 <span id="xp-text">0 / 100 XP</span>
             </div>
             <div class="pulse-bar-bg">
@@ -437,7 +426,7 @@
             </div>
         </div>
 
-        <!-- Attribute Ability Matrix Nodes -->
+        <!-- Real World Capability Metrics Matrix -->
         <div class="attribute-matrix">
             <div class="node-capsule">
                 <div>
@@ -447,7 +436,7 @@
             </div>
             <div class="node-capsule">
                 <div>
-                    <span class="node-lbl">AGILITY</span>
+                    <span class="node-lbl">DISCIPLINE</span>
                     <span id="stat-agi" class="node-val">0</span>
                 </div>
             </div>
@@ -466,94 +455,82 @@
         </div>
     </div>
 
-    <!-- MISSIONS CORE PANEL -->
+    <!-- OBJECTIVES CORE PANEL -->
     <div class="mission-panel">
-        <div class="panel-header-tag">// CHRONO-OBJECTIVE SCHEDULER</div>
+        <div class="panel-header-tag">// STRATEGIC OBJECTIVE MATRIX</div>
 
         <!-- SUB-SPACE INTENSITY CONFIGURATION MATRIX -->
         <div class="intensity-console">
             <div class="console-meta">
-                <span>INTENSITY SELECTION</span>
-                <span id="intensity-badge">⚡ NORMAL ENGINE (1.0x)</span>
+                <span>DAILY MULTIPLIER SELECTION</span>
+                <span id="intensity-badge">⚡ STANDARD EFFORT (1.0x)</span>
             </div>
             <input type="range" id="intensity-slider" class="console-slider" min="0.5" max="3" step="0.5" value="1" oninput="changeIntensity(this.value)">
         </div>
 
-        <!-- Tasks Matrix -->
+        <!-- Real Life Objectives -->
         <div id="task-pushups" onclick="triggerTask('pushups', 'str')" class="neural-task-node">
             <div>
-                <div class="task-title-line">Push-ups</div>
-                <div id="reward-pushups" class="task-yield-meta">Yield: Loading Data Matrix...</div>
+                <div class="task-title-line">Calisthenics Conditioning (Push-ups)</div>
+                <div id="reward-pushups" class="task-yield-meta">Yield: Loading...</div>
             </div>
             <div id="count-pushups" class="task-progress-status">0 / 100</div>
         </div>
 
         <div id="task-situps" onclick="triggerTask('situps', 'vit')" class="neural-task-node">
             <div>
-                <div class="task-title-line">Sit-ups</div>
-                <div id="reward-situps" class="task-yield-meta">Yield: Loading Data Matrix...</div>
+                <div class="task-title-line">Core Endurance (Sit-ups)</div>
+                <div id="reward-situps" class="task-yield-meta">Yield: Loading...</div>
             </div>
             <div id="count-situps" class="task-progress-status">0 / 100</div>
         </div>
 
         <div id="task-squats" onclick="triggerTask('squats', 'agi')" class="neural-task-node">
             <div>
-                <div class="task-title-line">Squats</div>
-                <div id="reward-squats" class="task-yield-meta">Yield: Loading Data Matrix...</div>
+                <div class="task-title-line">Lower Body Foundation (Squats)</div>
+                <div id="reward-squats" class="task-yield-meta">Yield: Loading...</div>
             </div>
             <div id="count-squats" class="task-progress-status">0 / 100</div>
         </div>
 
-        <div id="task-running" onclick="triggerTask('running', 'int')" class="neural-task-node">
+        <div id="task-running" onclick="triggerTask('running', 'vit')" class="neural-task-node">
             <div>
-                <div class="task-title-line">Sub-Light Kinetic Run</div>
-                <div id="reward-running" class="task-yield-meta">Yield: Loading Data Matrix...</div>
+                <div class="task-title-line">Cardio Capacity (Running)</div>
+                <div id="reward-running" class="task-yield-meta">Yield: Loading...</div>
             </div>
-            <div id="count-running" class="task-progress-status">0 / 10</div>
+            <div id="count-running" class="task-progress-status">0 / 10 KM</div>
         </div>
 
-        <!-- NEW STUDY TIME TASK NODE -->
         <div id="task-study" onclick="triggerTask('study', 'int')" class="neural-task-node">
             <div>
-                <div class="task-title-line">🧠 Neural Assimilation (Study Time)</div>
-                <div id="reward-study" class="task-yield-meta">Yield: Loading Data Matrix...</div>
+                <div class="task-title-line">🧠 Cognitive Deep Work (Study Session)</div>
+                <div id="reward-study" class="task-yield-meta">Yield: Loading...</div>
             </div>
             <div id="count-study" class="task-progress-status">0 / 1 Hr</div>
         </div>
     </div>
 
-    <!-- TERMINAL CONTROL ACTIONS -->
+    <!-- TERMINAL ACTIONS CONTROLS -->
     <div class="terminal-actions-row">
-        <button class="core-btn btn-ambient" onclick="clearDailyQuests()">Cycle Current Objectives Only</button>
-        <button class="core-btn btn-destruct" onclick="systemResetToZero()">💥 Full Core Reset To Zero</button>
+        <button class="core-btn btn-ambient" onclick="clearDailyQuests()">Cycle Daily Objectives Only</button>
+        <button class="core-btn btn-destruct" onclick="systemResetToZero()">💥 Absolute Data Reset To Zero</button>
     </div>
 
     <script>
-        // Immersive Solo Leveling Rank Database Index Array
+        // High-Achiever Real Life Tier Index Array
         const levelTitles = {
-            1: "E-RANK HUNTER (Weakest Weapon)",
-            2: "E-RANK HUNTER (D-Double Dungeon Survivor)",
-            3: "D-RANK HUNTER (Breaking Limits)",
-            4: "D-RANK HUNTER (System Chosen)",
-            5: "C-RANK HUNTER (Trial Conqueror)",
-            6: "C-RANK HUNTER (Shadow Awakening)",
-            7: "B-RANK HUNTER (Necromancer Core)",
-            8: "B-RANK HUNTER (Demon Castle Challenger)",
-            9: "A-RANK HUNTER (Monarch Prototype)",
-            10: "A-RANK HUNTER (The Shadow Lord)",
-            11: "S-RANK HUNTER (Jeju Island Terror)",
-            12: "S-RANK HUNTER (National Level Threat)",
-            13: "S-RANK HUNTER (Sovereign Vessel)",
-            14: "MONARCH TIER (Death's True Heir)",
-            15: "MONARCH TIER (Shadow Army Commander)",
-            16: "SHADOW MONARCH (Lord of the Dead)",
-            17: "SHADOW MONARCH (Ruler of Netherworld)",
-            18: "SHADOW MONARCH (Eternal Darkness Origin)",
-            19: "SUPREME GOD OF SHADOWS (Absolute Domain)",
-            20: "SUNG JINWOO (The Only True Singularity)"
+            1: "NOVICE APPRENTICE (Foundation Stage)",
+            2: "PROACTIVE STRIVER (Developing Habits)",
+            3: "DISCIPLINED PRACTITIONER (Consistent Work)",
+            4: "SKILLED STRATEGIST (Expanding Boundaries)",
+            5: "HIGH PERFORMER (Elite Momentum)",
+            6: "ELITE ACHIEVER (Advanced Focus Blocks)",
+            7: "MASTER EXECUTOR (Optimized Performance)",
+            8: "EXPERT OPERATOR (Peak Condition)",
+            9: "VISIONARY LEADERSHIP TIER (Deep Impact)",
+            10: "ELITE PATHFINDER (Peak Personal Mastery)"
         };
 
-        // System Configuration Engine Array Schema
         let systemData = {
             level: 1,
             xp: 0,
@@ -563,28 +540,24 @@
             completed: { pushups: false, situps: false, squats: false, running: false, study: false }
         };
 
-        // Added 'study' config arrays to calculate base targets/rewards dynamically
         const baseTargets = { pushups: 100, situps: 100, squats: 100, running: 10, study: 1 };
         const baseRewards = { pushups: 10, situps: 10, squats: 10, running: 20, study: 25 };
 
         if (localStorage.getItem('monarchSystemConfig')) {
             systemData = JSON.parse(localStorage.getItem('monarchSystemConfig'));
-            // Fix edge case migration bug if 'study' doesn't exist in historical JSON structures
-            if (systemData.completed.study === undefined) {
-                systemData.completed.study = false;
-            }
+            if (systemData.completed.study === undefined) systemData.completed.study = false;
         }
 
         function changeIntensity(val) {
             systemData.intensity = parseFloat(val);
             
             const label = document.getElementById('intensity-badge');
-            if(val == 0.5) label.innerText = "🍃 CASUAL CALIBRATION (0.5x)";
-            else if(val == 1.0) label.innerText = "⚡ NORMAL ENGINE (1.0x)";
-            else if(val == 1.5) label.innerText = "🔥 OVERCLOCK MATRIX (1.5x)";
-            else if(val == 2.0) label.innerText = "💀 NIGHTMARE CORE (2.0x)";
-            else if(val == 2.5) label.innerText = "👹 DEMONIC SINGULARITY (2.5x)";
-            else if(val == 3.0) label.innerText = "👑 SOVEREIGN ARCHTYPE (3.0x)";
+            if(val == 0.5) label.innerText = "🍃 CASUAL EFFORT (0.5x)";
+            else if(val == 1.0) label.innerText = "⚡ STANDARD EFFORT (1.0x)";
+            else if(val == 1.5) label.innerText = "🔥 HIGH PERFORMANCE (1.5x)";
+            else if(val == 2.0) label.innerText = "💀 ULTRADIAN FOCUS (2.0x)";
+            else if(val == 2.5) label.innerText = "👹 EXTENDED BREAKTHROUGH (2.5x)";
+            else if(val == 3.0) label.innerText = "👑 APEX EXECUTIVE LEVEL (3.0x)";
 
             drawSystemUI();
         }
@@ -601,12 +574,11 @@
             document.getElementById('stat-int').innerText = systemData.stats.int;
             document.getElementById('stat-vit').innerText = systemData.stats.vit;
 
-            // Compute Dynamically Named Rank Title
             const rankLabel = document.getElementById('display-rank');
-            if (systemData.level > 20) {
-                rankLabel.innerText = "GOD-TIER SOVEREIGN 👑";
+            if (systemData.level > 10) {
+                rankLabel.innerText = "PREMIUM EXPERT ACUMEN 👑";
             } else {
-                rankLabel.innerText = levelTitles[systemData.level] || "UNKNOWN LIFEFORM ENTITY";
+                rankLabel.innerText = levelTitles[systemData.level] || "NOVICE ENGINE";
             }
 
             Object.keys(systemData.completed).forEach(key => {
@@ -614,16 +586,15 @@
                 const rewardElement = document.getElementById(`reward-${key}`);
                 const countElement = document.getElementById(`count-${key}`);
                 
-                // Scale target intensity multiplier parameters
                 let adjustedTarget = Math.round(baseTargets[key] * systemData.intensity);
-                if (key === 'study' && adjustedTarget < 1) adjustedTarget = 1; // Safeguard 1 hour minimum floor limit
+                if (key === 'study' && adjustedTarget < 1) adjustedTarget = 1; 
                 
                 const adjustedXp = Math.round(baseRewards[key] * systemData.intensity);
                 const adjustedStatBonus = Math.max(1, Math.round(1 * systemData.intensity));
                 
-                const statName = key === 'pushups' ? 'STR' : key === 'situps' ? 'VIT' : key === 'squats' ? 'AGI' : 'INT';
+                const statName = key === 'pushups' ? 'STR' : key === 'situps' ? 'VIT' : key === 'squats' ? 'DISC' : key === 'running' ? 'VIT' : 'INT';
                 
-                let unit = 'Cycles';
+                let unit = 'Reps';
                 if (key === 'running') unit = 'KM';
                 if (key === 'study') unit = adjustedTarget === 1 ? 'Hour' : 'Hours';
 
@@ -675,7 +646,7 @@
         }
 
         function systemResetToZero() {
-            if (confirm("CRITICAL INTERFACES TERMINATION ALERT:\nDo you want to initialize absolute core data destruction? This completely resets levels and core attributes to 0.")) {
+            if (confirm("DATA PURGE ALERT:\nAre you sure you want to completely wipe all levels, productivity attributes, and tracking data back to zero?")) {
                 systemData = {
                     level: 1,
                     xp: 0,
@@ -688,8 +659,8 @@
             }
         }
 
-        // Run boot sequence initialization
         changeIntensity(systemData.intensity);
     </script>
 </body>
 </html>
+
