@@ -1,590 +1,524 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solo Leveling System</title>
-    <style>
-        :root {
-            --neon-blue: #00d2ff;
-            --dark-bg: #0a0e17;
-            --panel-bg: rgba(16, 24, 48, 0.85);
-            --border-glow: rgba(0, 210, 255, 0.3);
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solo Leveling System</title>
+    <style>
+        :root {
+            --neon-cyan: #00d2ff;
+            --neon-purple: #9333ea;
+            --dark-bg: #05070a;
+            --panel-bg: rgba(13, 17, 23, 0.85);
+            --border-glow: rgba(0, 210, 255, 0.25);
+        }
 
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', Courier, monospace, sans-serif;
+        }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
+        body {
+            background-color: var(--dark-bg);
+            background-image: radial-gradient(circle at center, #0d1117 0%, var(--dark-bg) 100%);
+            color: #e2e8f0;
+            min-height: 100vh;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
+        /* Top Warning & Header */
+        .system-alert {
+            width: 100%;
+            max-width: 420px;
+            background: rgba(0, 0, 0, 0.9);
+            border: 1px solid #f43f5e;
+            color: #f43f5e;
+            padding: 8px;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+            box-shadow: 0 0 10px rgba(244, 63, 94, 0.2);
+        }
 
-        body {
-            background: radial-gradient(circle at center, #161f38 0%, var(--dark-bg) 100%);
-            color: #ffffff;
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            overflow-x: hidden;
-        }
+        .header-container {
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 15px;
+        }
 
+        .main-title {
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            color: #ffffff;
+            text-shadow: 0 0 8px rgba(255,255,255,0.2);
+            line-height: 1.3;
+        }
 
-        /* System Header Glow */
-        .system-header {
-            text-align: center;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
+        .neon-blue-text {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+            display: block;
+            font-size: 1.1rem;
+            margin-top: 5px;
+        }
 
+        /* Level & Character Section */
+        .card-panel {
+            width: 100%;
+            max-width: 420px;
+            background: var(--panel-bg);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 0 20px var(--border-glow);
+            margin-bottom: 20px;
+        }
 
-        .system-header h1 {
-            font-size: 2rem;
-            color: #ffffff;
-            text-shadow: 0 0 10px var(--neon-blue), 0 0 20px var(--neon-blue);
-            animation: pulse 2s infinite alternate;
-        }
+        .avatar-frame {
+            width: 100%;
+            height: 240px;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 15px;
+            border: 1px solid #1e293b;
+            background: #000;
+        }
 
+        /* SVG Ultra HD Anime Character Graphic Built-In */
+        .avatar-svg {
+            width: 100%;
+            height: 100%;
+        }
 
-        /* HD Anime Display Panel */
-        .display-panel {
-            width: 100%;
-            max-width: 450px;
-            background: var(--panel-bg);
-            border: 2px solid var(--neon-blue);
-            border-radius: 12px;
-            box-shadow: 0 0 25px var(--border-glow);
-            overflow: hidden;
-            margin-bottom: 20px;
-            position: relative;
-            backdrop-filter: blur(10px);
-        }
+        .level-overlay {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(5, 7, 10, 0.85);
+            border: 1px solid var(--neon-cyan);
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #fff;
+            text-shadow: 0 0 5px var(--neon-cyan);
+        }
 
+        .rank-overlay {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(147, 51, 234, 0.2);
+            border: 1px solid var(--neon-purple);
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #d8b4fe;
+        }
 
-        .anime-container {
-            width: 100%;
-            height: 300px;
-            position: relative;
-            background-color: #000;
-        }
+        /* Progress Bar */
+        .xp-wrapper {
+            margin-bottom: 5px;
+        }
+        .label-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        .bar-container {
+            height: 8px;
+            background: #0f172a;
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid #1e293b;
+        }
+        .bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #0072ff, var(--neon-cyan));
+            box-shadow: 0 0 8px var(--neon-cyan);
+            transition: width 0.4s ease;
+        }
 
+        /* Ability Scores Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
 
-        .anime-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: all 0.5s ease-in-out;
-        }
+        .stat-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
 
+        .stat-label {
+            font-size: 0.7rem;
+            color: #64748b;
+            text-transform: uppercase;
+            display: block;
+        }
 
-        .level-badge {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            background: rgba(0, 0, 0, 0.75);
-            border: 1px solid var(--neon-blue);
-            padding: 6px 15px;
-            border-radius: 20px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: var(--neon-blue);
-            box-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
-            letter-spacing: 1px;
-        }
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #f1f5f9;
+        }
 
+        /* Objectives Section */
+        .objectives-panel {
+            width: 100%;
+            max-width: 420px;
+            background: var(--panel-bg);
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 16px;
+        }
 
-        /* Stats & Experience Progress */
-        .status-content {
-            padding: 20px;
-        }
+        .panel-title-row {
+            display: flex;
+            justify-content: justify;
+            align-items: center;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 8px;
+        }
 
+        .panel-title {
+            font-size: 0.85rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #94a3b8;
+        }
 
-        .xp-bar-container {
-            background: rgba(255, 255, 255, 0.1);
-            height: 12px;
-            border-radius: 6px;
-            overflow: hidden;
-            margin-top: 10px;
-            border: 1px solid rgba(0, 210, 255, 0.2);
-        }
+        .task-item {
+            background: rgba(5, 7, 10, 0.5);
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
 
+        .task-item:hover {
+            border-color: rgba(0, 212, 255, 0.4);
+            background: rgba(0, 212, 255, 0.02);
+        }
 
-        .xp-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #0072ff, var(--neon-blue));
-            box-shadow: 0 0 10px var(--neon-blue);
-            transition: width 0.4s ease;
-        }
+        .task-item.done {
+            border-color: rgba(16, 185, 129, 0.4);
+            background: rgba(16, 185, 129, 0.03);
+        }
 
+        .task-name {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #e2e8f0;
+        }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 20px;
-        }
+        .task-reward {
+            font-size: 0.65rem;
+            color: #64748b;
+            margin-top: 2px;
+        }
 
+        .task-count {
+            font-size: 0.8rem;
+            color: #64748b;
+            font-weight: bold;
+        }
 
-        .stat-box {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
-        }
+        .task-item.done .task-count {
+            color: #10b981;
+        }
 
+        .reset-btn {
+            width: 100%;
+            background: rgba(244, 63, 94, 0.1);
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            color: #f43f5e;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-transform: uppercase;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
 
-        .stat-box span {
-            display: block;
-            font-size: 0.85rem;
-            color: #8a99ad;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
+        .reset-btn:hover {
+            background: rgba(244, 63, 94, 0.2);
+        }
 
-
-        .stat-box strong {
-            font-size: 1.4rem;
-            color: #fff;
-        }
-
-
-        /* Quest / Mission Section */
-        .quest-panel {
-            width: 100%;
-            max-width: 450px;
-            Here is the fully upgraded, **Ultra HD Anime Version** of your Solo Leveling System app! 
-
-
-I have redesigned the entire interface with a dark dungeon theme, glowing neon stat bars, leveling up sound effects (simulated with animations), and a dynamic anime character image that changes and **levels up** as you gain higher levels (starting with a baseline shadow hunter style, then progressing to intermediate power, and finally reaching the ultimate Sovereign state).
-
-
-### Copy and Paste This New Code
-
-
-Replace the entire content of your `index.html` file on GitHub with this code:
-
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shadow System - Live or Die</title>
-    <!-- Tailwind CSS for structure -->
-    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
-    <!-- Google Fonts for Anime/Gaming Style -->
-    <link href="[https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap](https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;700&display=swap)" rel="stylesheet">
-    <!-- FontAwesome for Premium Icons -->
-    <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
-    
-    <style>
-        body {
-            font-family: 'Rajdhani', sans-serif;
-            background: radial-gradient(circle at center, #0d1117 0%, #05070a 100%);
-            color: #e2e8f0;
-            overflow-x: hidden;
-        }
-        .system-font {
-            font-family: 'Orbitron', sans-serif;
-        }
-        .neon-border-blue {
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2), inset 0 0 15px rgba(0, 212, 255, 0.1);
-            border: 1px solid rgba(0, 212, 255, 0.4);
-        }
-        .neon-text-blue {
-            text-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
-        }
-        .neon-text-purple {
-            text-shadow: 0 0 12px rgba(147, 51, 234, 0.8);
-        }
-        .stat-bar {
-            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        /* Level Up Flash Animation */
-        @keyframes levelUpFlash {
-            0% { background: rgba(255, 255, 255, 0); filter: brightness(1); }
-            50% { background: rgba(0, 212, 255, 0.4); filter: brightness(2); }
-            100% { background: rgba(255, 255, 255, 0); filter: brightness(1); }
-        }
-        .level-up-active {
-            animation: levelUpFlash 0.8s ease-out;
-        }
-    </style>
+        /* Flash Animation */
+        @keyframes levelUpFlash {
+            0% { border-color: rgba(0, 212, 255, 0.3); box-shadow: 0 0 20px var(--border-glow); }
+            50% { border-color: #9333ea; box-shadow: 0 0 35px rgba(147, 51, 234, 0.6); }
+            100% { border-color: rgba(0, 212, 255, 0.3); box-shadow: 0 0 20px var(--border-glow); }
+        }
+        .flash-active {
+            animation: levelUpFlash 0.7s ease-in-out;
+        }
+    </style>
 </head>
-<body class="p-4 md:p-8 min-h-screen flex flex-col items-center justify-start">
-
-
-    <!-- SYSTEM ALERTS CONTAINER -->
-    <div id="system-alert" class="hidden fixed top-5 z-50 w-11/12 max-w-md bg-black/90 border-2 border-cyan-400 text-cyan-400 p-4 rounded system-font text-center tracking-widest neon-border-blue animate-bounce">
-        <i class="fa-solid fa-triangle-exclamation mr-2 animate-pulse"></i> 
-        <span id="alert-text">WARNING: SYSTEM OVERLOAD</span>
-    </div>
-
-
-    <!-- MAIN INTERFACE HEADER -->
-    <div class="w-full max-w-4xl flex flex-col md:flex-row justify-between items-center border-b border-slate-800 pb-4 mb-6 tracking-wider">
-        <div class="text-center md:text-left mb-4 md:mb-0">
-            <h1 class="system-font text-2xl md:text-3xl font-black text-slate-400 tracking-widest">
-                DAILY QUEST: <span class="text-cyan-400 neon-text-blue">PREPARATION TO BECOME STRONGER</span>
-            </h1>
-            <p class="text-xs text-slate-500 uppercase font-bold mt-1">System Status: <span class="text-emerald-400 animate-pulse">ONLINE</span></p>
-        </div>
-        <div class="system-font bg-slate-950/80 px-6 py-2 rounded-lg neon-border-blue text-center">
-            <span class="text-slate-400 text-sm block uppercase font-bold">Current Level</span>
-            <span id="player-level" class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-500 neon-text-purple">LV. 1</span>
-        </div>
-    </div>
-
-
-    <!-- MAIN GRID CONTAINER -->
-    <div id="main-panel" class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
-        
-        <!-- LEFT COLUMN: ULTRA HD CHARACTER PORTRAIT & PROGRESS (4 cols) -->
-        <div class="md:col-span-5 bg-slate-950/60 p-5 rounded-xl border border-slate-800/80 backdrop-blur-md flex flex-col items-center">
-            
-            <!-- Dynamic Anime Avatar Container -->
-            <div class="relative w-full aspect-[3/4] rounded-lg overflow-hidden border-2 border-slate-800 shadow-2xl mb-4 group">
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent z-10"></div>
-                <img id="character-avatar" 
-                     src="[https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=600&auto=format&fit=crop](https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=600&auto=format&fit=crop)" 
-                     alt="System Monarch Profile" 
-                     class="w-full h-full object-cover transition-all duration-700 filter brightness-90 contrast-110 group-hover:scale-105">
-                
-                <!-- Floating Level Tag overlay -->
-                <div class="absolute bottom-4 left-4 z-20 system-font">
-                    <p id="character-rank" class="text-xs font-bold text-cyan-400 tracking-widest uppercase bg-slate-950/90 px-2 py-0.5 rounded border border-cyan-500/30">
-                        E-Rank Awakened
-                    </p>
-                </div>
-            </div>
-
-
-            <!-- Experience Progression Bar -->
-            <div class="w-full system-font text-xs mb-2 flex justify-between text-slate-400 font-bold uppercase">
-                <span>System Synchronization (XP)</span>
-                <span id="xp-text">0 / 100 XP</span>
-            </div>
-            <div class="w-full h-3 bg-slate-900 rounded-full overflow-hidden border border-slate-800 p-[1px]">
-                <div id="xp-bar" class="stat-bar h-full rounded-full bg-gradient-to-r from-cyan-500 to-purple-600 shadow-[0_0_10px_#00d4ff]" style="width: 0%"></div>
-            </div>
-        </div>
-
-
-        <!-- RIGHT COLUMN: STATS AND ACTIVE DAILY QUESTS (7 cols) -->
-        <div class="md:col-span-7 flex flex-col gap-6 w-full">
-            
-            <!-- STATS BLOCK -->
-            <div class="bg-slate-950/60 p-5 rounded-xl border border-slate-800/80 backdrop-blur-md">
-                <h3 class="system-font text-lg font-bold text-slate-400 mb-4 tracking-widest flex items-center">
-                    <i class="fa-solid fa-chart-simple text-cyan-400 mr-2"></i> ABILITY SCORES
-                </h3>
-                <div class="grid grid-cols-2 gap-4">
-                    <!-- STR -->
-                    <div class="bg-slate-900/50 p-3 rounded border border-slate-800/50 flex justify-between items-center">
-                        <div>
-                            <span class="text-slate-500 text-xs font-bold block uppercase">Strength</span>
-                            <span id="stat-str" class="text-xl font-bold text-slate-200 system-font">10</span>
-                        </div>
-                        <i class="fa-solid fa-dumbbell text-rose-500/30 text-2xl"></i>
-                    </div>
-                    <!-- AGI -->
-                    <div class="bg-slate-900/50 p-3 rounded border border-slate-800/50 flex justify-between items-center">
-                        <div>
-                            <span class="text-slate-500 text-xs font-bold block uppercase">Agility</span>
-                            <span id="stat-agi" class="text-xl font-bold text-slate-200 system-font">10</span>
-                        </div>
-                        <i class="fa-solid fa-bolt text-amber-500/30 text-2xl"></i>
-                    </div>
-                    <!-- INT -->
-                    <div class="bg-slate-900/50 p-3 rounded border border-slate-800/50 flex justify-between items-center">
-                        <div>
-                            <span class="text-slate-500 text-xs font-bold block uppercase">Intelligence</span>
-                            <span id="stat-int" class="text-xl font-bold text-slate-200 system-font">10</span>
-                        </div>
-                        <i class="fa-solid fa-brain text-cyan-500/30 text-2xl"></i>
-                    </div>
-                    <!-- VIT -->
-                    <div class="bg-slate-900/50 p-3 rounded border border-slate-800/50 flex justify-between items-center">
-                        <div>
-                            <span class="text-slate-500 text-xs font-bold block uppercase">Vitality</span>
-                            <span id="stat-vit" class="text-xl font-bold text-slate-200 system-font">10</span>
-                        </div>
-                        <i class="fa-solid fa-heart text-emerald-500/30 text-2xl"></i>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- QUESTS MISSION PANEL -->
-            <div class="bg-slate-950/60 p-5 rounded-xl border border-slate-800/80 backdrop-blur-md flex-1">
-                <div class="flex justify-between items-center mb-4">
-                    <h3 class="system-font text-lg font-bold text-slate-400 tracking-widest flex items-center">
-                        <i class="fa-solid fa-scroll text-cyan-400 mr-2"></i> ACTIVE MISSIONS
-                    </h3>
-                    <span class="text-xs text-rose-400 font-bold bg-rose-950/50 px-2 py-0.5 rounded border border-rose-500/20 animate-pulse">
-                        PENALTY QUEST ACTIVE IN 6H
-                    </span>
-                </div>
-
-
-                <!-- Quest Tasks List -->
-                <div class="flex flex-col gap-3">
-                    <!-- Pushups -->
-                    <div class="flex items-center justify-between p-4 bg-slate-900/40 rounded-lg border border-slate-800/60 hover:border-cyan-500/30 transition-all">
-                        <div class="flex items-center gap-3">
-                            <button onclick="completeTask('pushups', 10, 'str')" id="btn-pushups" class="w-6 h-6 rounded border-2 border-slate-700 flex items-center justify-center text-cyan-400 hover:border-cyan-400 transition-all">
-                                <i class="fa-solid fa-check text-xs hidden"></i>
-                            </button>
-                            <div>
-                                <p class="font-bold text-slate-200 tracking-wide">Push-ups</p>
-                                <p class="text-xs text-slate-500">Reward: +10 XP / +1 Strength</p>
-                            </div>
-                        </div>
-                        <span class="system-font font-bold text-sm text-slate-400 bg-slate-950 px-3 py-1 rounded border border-slate-800">0 / 100</span>
-                    </div>
-
-
-                    <!-- Situps -->
-                    <div class="flex items-center justify-between p-4 bg-slate-900/40 rounded-lg border border-slate-800/60 hover:border-cyan-500/30 transition-all">
-                        <div class="flex items-center gap-3">
-                            <button onclick="completeTask('situps', 10, 'vit')" id="btn-situps" class="w-6 h-6 rounded border-2 border-slate-700 flex items-center justify-center text-cyan-400 hover:border-cyan-400 transition-all">
-                                <i class="fa-solid fa-check text-xs hidden"></i>
-                            </button>
-                            <div>
-                                <p class="font-bold text-slate-200 tracking-wide">Sit-ups</p>
-                                <p class="text-xs text-slate-500">Reward: +10 XP / +1 Vitality</p>
-                            </div>
-                        </div>
-                        <span class="system-font font-bold text-sm text-slate-400 bg-slate-950 px-3 py-1 rounded border border-slate-800">0 / 100</span>
-                    </div>
-
-
-                    <!-- Squats -->
-                    <div class="flex items-center justify-between p-4 bg-slate-900/40 rounded-lg border border-slate-800/60 hover:border-cyan-500/30 transition-all">
-                        <div class="flex items-center gap-3">
-                            <button onclick="completeTask('squats', 10, 'agi')" id="btn-squats" class="w-6 h-6 rounded border-2 border-slate-700 flex items-center justify-center text-cyan-400 hover:border-cyan-400 transition-all">
-                                <i class="fa-solid fa-check text-xs hidden"></i>
-                            </button>
-                            <div>
-                                <p class="font-bold text-slate-200 tracking-wide">Squats</p>
-                                <p class="text-xs text-slate-500">Reward: +10 XP / +1 Agility</p>
-                            </div>
-                        </div>
-                        <span class="system-font font-bold text-sm text-slate-400 bg-slate-950 px-3 py-1 rounded border border-slate-800">0 / 100</span>
-                    </div>
-
-
-                    <!-- Running -->
-                    <div class="flex items-center justify-between p-4 bg-slate-900/40 rounded-lg border border-slate-800/60 hover:border-cyan-500/30 transition-all">
-                        <div class="flex items-center gap-3">
-                            <button onclick="completeTask('running', 20, 'int')" id="btn-running" class="w-6 h-6 rounded border-2 border-slate-700 flex items-center justify-center text-cyan-400 hover:border-cyan-400 transition-all">
-                                <i class="fa-solid fa-check text-xs hidden"></i>
-                            </button>
-                            <div>
-                                <p class="font-bold text-slate-200 tracking-wide">Running (10KM)</p>
-                                <p class="text-xs text-slate-500">Reward: +20 XP / +1 Intelligence</p>
-                            </div>
-                        </div>
-                        <span class="system-font font-bold text-sm text-slate-400 bg-slate-950 px-3 py-1 rounded border border-slate-800">0 / 1</span>
-                    </div>
-                </div>
-
-
-                <!-- RESET BUTTON -->
-                <button onclick="resetQuests()" class="w-full mt-6 bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-cyan-400 py-2 rounded-lg text-sm font-bold uppercase tracking-widest border border-slate-800 transition-all">
-                    Reset Daily Quests
-                </button>
-            </div>
-
-
-        </div>
-    </div>
-
-
-    <!-- REWARD MODAL (POPS UP ON LEVEL UP) -->
-    <div id="reward-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-950 border-2 border-purple-500 p-8 rounded-xl max-w-sm w-full text-center tracking-wide shadow-[0_0_30px_rgba(147,51,234,0.4)]">
-            <h2 class="system-font text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 mb-2 animate-pulse">LEVEL UP</h2>
-            <p class="text-slate-400 text-sm mb-6 uppercase">The System has recognized your evolutionary growth.</p>
-            <div class="text-left bg-slate-900/80 p-4 rounded border border-slate-800 mb-6 system-font text-sm flex flex-col gap-2">
-                <p class="text-emerald-400"><i class="fa-solid fa-circle-check mr-2"></i> All Fatigue Cleared</p>
-                <p class="text-cyan-400"><i class="fa-solid fa-circle-check mr-2"></i> Base Stats Increased (+5)</p>
-                <p class="text-purple-400"><i class="fa-solid fa-circle-check mr-2"></i> Monarch Form Upgraded</p>
-            </div>
-            <button onclick="closeModal()" class="w-full bg-gradient-to-r from-cyan-500 to-purple-600 font-bold py-2 rounded uppercase text-sm tracking-widest shadow-lg hover:brightness-110 transition-all">
-                Accept Rewards
-            </button>
-        </div>
-    </div>
-
-
-    <script>
-        // System Core State Variables
-        let state = {
-            level: 1,
-            xp: 0,
-            xpNeeded: 100,
-            stats: { str: 10, agi: 10, int: 10, vit: 10 },
-            completed: { pushups: false, situps: false, squats: false, running: false }
-        };
-
-
-        // Ultra HD Anime Character Evolution Matrix
-        const animeAvatars = {
-            1: {
-                rank: "E-Rank Hunter (Base Form)",
-                img: "[https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=600&auto=format&fit=crop](https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=600&auto=format&fit=crop)"
-            },
-            2: {
-                rank: "B-Rank Assassin (Shadow Awakening)",
-                img: "[https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=600&auto=format&fit=crop](https://images.unsplash.com/photo-1578632767115-351597cf2477?q=80&w=600&auto=format&fit=crop)"
-            },
-            3: {
-                rank: "S-Rank Monarch (The Shadow Sovereign)",
-                img: "[https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?q=80&w=600&auto=format&fit=crop](https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?q=80&w=600&auto=format&fit=crop)"
-            }
-        };
-
-
-        // Load data from storage if it exists
-        if (localStorage.getItem('shadowSystemState')) {
-            state = JSON.parse(localStorage.getItem('shadowSystemState'));
-        }
-
-
-        // Initialize display values
-        function updateDisplay() {
-            document.getElementById('player-level').innerText = `LV. ${state.level}`;
-            document.getElementById('xp-text').innerText = `${state.xp} / ${state.xpNeeded} XP`;
-            document.getElementById('xp-bar').style.width = `${(state.xp / state.xpNeeded) * 100}%`;
-            
-            // Stats
-            document.getElementById('stat-str').innerText = state.stats.str;
-            document.getElementById('stat-agi').innerText = state.stats.agi;
-            document.getElementById('stat-int').innerText = state.stats.int;
-            document.getElementById('stat-vit').innerText = state.stats.vit;
-
-
-            // Tasks UI Checked/Unchecked
-            Object.keys(state.completed).forEach(key => {
-                const btn = document.getElementById(`btn-${key}`);
-                const icon = btn.querySelector('i');
-                const row = btn.closest('div.flex');
-                const textCount = row.nextElementSibling;
-
-
-                if (state.completed[key]) {
-                    icon.classList.remove('hidden');
-                    btn.classList.add('bg-cyan-500/20', 'border-cyan-400');
-                    textCount.innerText = key === 'running' ? "1 / 1" : "100 / 100";
-                    textCount.classList.add('text-cyan-400', 'border-cyan-500/30');
-                } else {
-                    icon.classList.add('hidden');
-                    btn.classList.remove('bg-cyan-500/20', 'border-cyan-400');
-                    textCount.innerText = key === 'running' ? "0 / 1" : "0 / 100";
-                    textCount.classList.remove('text-cyan-400', 'border-cyan-500/30');
-                }
-            });
-
-
-            // Handle Dynamic Graphic Upgrades Based on Current Level Tier
-            let tier = 1;
-            if (state.level >= 5) tier = 3;
-            else if (state.level >= 3) tier = 2;
-
-
-            document.getElementById('character-rank').innerText = animeAvatars[tier].rank;
-            document.getElementById('character-avatar').src = animeAvatars[tier].img;
-
-
-            // Save configuration
-            localStorage.setItem('shadowSystemState', JSON.stringify(state));
-        }
-
-
-        // Execute Task Completion
-        function completeTask(taskKey, xpReward, statKey) {
-            if (state.completed[taskKey]) {
-                showNotification("MISSION ALREADY SECURED");
-                return;
-            }
-
-
-            state.completed[taskKey] = true;
-            state.xp += xpReward;
-            state.stats[statKey] += 1;
-
-
-            showNotification(`OBJECTIVE CLEARED: +${xpReward} XP / +1 ${statKey.toUpperCase()}`);
-
-
-            // Trigger Level Up Calculation
-            if (state.xp >= state.xpNeeded) {
-                state.xp -= state.xpNeeded;
-                state.level += 1;
-                state.xpNeeded = Math.floor(state.xpNeeded * 1.5);
-                
-                // Add flat upgrade points across all attributes on clear level up
-                state.stats.str += 5;
-                state.stats.agi += 5;
-                state.stats.int += 5;
-                state.stats.vit += 5;
-
-
-                triggerLevelUpEffects();
-            } else {
-                updateDisplay();
-            }
-        }
-
-
-        // Trigger visual ultra effects on level up
-        function triggerLevelUpEffects() {
-            document.getElementById('main-panel').classList.add('level-up-active');
-            setTimeout(() => {
-                document.getElementById('main-panel').classList.remove('level-up-active');
-            }, 800);
-
-
-            document.getElementById('reward-modal').classList.remove('hidden');
-            updateDisplay();
-        }
-
-
-        function closeModal() {
-            document.getElementById('reward-modal').classList.add('hidden');
-        }
-
-
-        // Action system notifications
-        function showNotification(msg) {
-            const container = document.getElementById('system-alert');
-            document.getElementById('alert-text').innerText = msg;
-            container.classList.remove('hidden');
-            setTimeout(() => {
-                container.classList.add('hidden');
-            }, 3000);
-        }
-
-
-        // Reset system loops
-        function resetQuests() {
-            Object.keys(state.completed).forEach(key => state.completed[key] = false);
-            showNotification("DAILY QUESTS HAVE BEEN REGENERATED");
-            updateDisplay();
-        }
-
-
-        // Initial launch core run
-        updateDisplay();
-    </script>
+<body>
+
+    <!-- SYSTEM ALERTS -->
+    <div class="system-alert">
+        ⚠️ WARNING: SYSTEM OVERLOAD
+    </div>
+
+    <!-- HEADER -->
+    <div class="header-container">
+        <h1 class="main-title">
+            DAILY QUEST:
+            <span class="neon-blue-text">PREPARATION TO BECOME STRONGER</span>
+        </h1>
+    </div>
+
+    <!-- MAIN DISPLAY CARD -->
+    <div id="main-card" class="card-panel">
+        <div class="avatar-frame">
+            <!-- Dynamic Vector Character Portrait -->
+            <svg id="character-svg" class="avatar-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <!-- Background Glow -->
+                <defs>
+                    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#1e1b4b"/>
+                        <stop offset="100%" stop-color="#000000"/>
+                    </radialGradient>
+                </defs>
+                <rect width="100" height="100" fill="url(#glow)"/>
+                <!-- Shadow Monarch Silhouette Aura -->
+                <path id="monarch-aura" d="M20,100 L35,40 L50,15 L65,40 L80,100 Z" fill="#060814" stroke="#00d2ff" stroke-width="0.5"/>
+                <!-- Glowing Eyes -->
+                <circle id="left-eye" cx="44" cy="35" r="1.5" fill="#00d2ff" filter="drop-shadow(0 0 2px #00d2ff)"/>
+                <circle id="right-eye" cx="56" cy="35" r="1.5" fill="#00d2ff" filter="drop-shadow(0 0 2px #00d2ff)"/>
+                <!-- Energy Wisps -->
+                <path d="M44,35 Q40,25 42,20" stroke="#00d2ff" stroke-width="0.3" fill="none" opacity="0.7"/>
+                <path d="M56,35 Q60,25 58,20" stroke="#00d2ff" stroke-width="0.3" fill="none" opacity="0.7"/>
+            </svg>
+            
+            <div id="display-lv" class="level-overlay">LV. 1</div>
+            <div id="display-rank" class="rank-overlay">E-RANK MONARCH</div>
+        </div>
+
+        <!-- Experience Progress Section -->
+        <div class="xp-wrapper">
+            <div class="label-row">
+                <span>SYSTEM SYNCHRONIZATION</span>
+                <span id="xp-text">0 / 100 XP</span>
+            </div>
+            <div class="bar-container">
+                <div id="xp-bar" class="bar-fill"></div>
+            </div>
+        </div>
+
+        <!-- Attribute Ability Grid -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div>
+                    <span class="stat-label">Strength</span>
+                    <span id="stat-str" class="stat-value">10</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div>
+                    <span class="stat-label">Agility</span>
+                    <span id="stat-agi" class="stat-value">10</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div>
+                    <span class="stat-label">Intelligence</span>
+                    <span id="stat-int" class="stat-value">10</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div>
+                    <span class="stat-label">Vitality</span>
+                    <span id="stat-vit" class="stat-value">10</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QUEST OBJECTIVES -->
+    <div class="objectives-panel">
+        <div class="panel-title-row">
+            <span class="panel-title">ACTIVE MISSIONS (PENALTY IN 6H)</span>
+        </div>
+
+        <!-- Pushups -->
+        <div id="task-pushups" onclick="triggerTask('pushups', 10, 'str')" class="task-item">
+            <div>
+                <div class="task-name">Push-ups</div>
+                <div class="task-reward">Reward: +10 XP / +1 Strength</div>
+            </div>
+            <div id="count-pushups" class="task-count">0 / 100</div>
+        </div>
+
+        <!-- Situps -->
+        <div id="task-situps" onclick="triggerTask('situps', 10, 'vit')" class="task-item">
+            <div>
+                <div class="task-name">Sit-ups</div>
+                <div class="task-reward">Reward: +10 XP / +1 Vitality</div>
+            </div>
+            <div id="count-situps" class="task-count">0 / 100</div>
+        </div>
+
+        <!-- Squats -->
+        <div id="task-squats" onclick="triggerTask('squats', 10, 'agi')" class="task-item">
+            <div>
+                <div class="task-name">Squats</div>
+                <div class="task-reward">Reward: +10 XP / +1 Agility</div>
+            </div>
+            <div id="count-squats" class="task-count">0 / 100</div>
+        </div>
+
+        <!-- Running -->
+        <div id="task-running" onclick="triggerTask('running', 20, 'int')" class="task-item">
+            <div>
+                <div class="task-name">Running (10KM)</div>
+                <div class="task-reward">Reward: +20 XP / +1 Intelligence</div>
+            </div>
+            <div id="count-running" class="task-count">0 / 1</div>
+        </div>
+
+        <button class="reset-btn" onclick="clearDailyQuests()">Reset Daily Quests</button>
+    </div>
+
+    <script>
+        // Internal Saved State Logic
+        let systemData = {
+            level: 1,
+            xp: 0,
+            xpMax: 100,
+            stats: { str: 10, agi: 10, int: 10, vit: 10 },
+            completed: { pushups: false, situps: false, squats: false, running: false }
+        };
+
+        if (localStorage.getItem('monarchSystemConfig')) {
+            systemData = JSON.parse(localStorage.getItem('monarchSystemConfig'));
+        }
+
+        function drawSystemUI() {
+            // Stats & Numerical Info Text
+            document.getElementById('display-lv').innerText = `LV. ${systemData.level}`;
+            document.getElementById('xp-text').innerText = `${systemData.xp} / ${systemData.xpMax} XP`;
+            document.getElementById('xp-bar').style.width = `${(systemData.xp / systemData.xpMax) * 100}%`;
+            
+            document.getElementById('stat-str').innerText = systemData.stats.str;
+            document.getElementById('stat-agi').innerText = systemData.stats.agi;
+            document.getElementById('stat-int').innerText = systemData.stats.int;
+            document.getElementById('stat-vit').innerText = systemData.stats.vit;
+
+            // Handle objective states
+            Object.keys(systemData.completed).forEach(itemKey => {
+                const element = document.getElementById(`task-${itemKey}`);
+                const countElement = document.getElementById(`count-${itemKey}`);
+                
+                if (systemData.completed[itemKey]) {
+                    element.classList.add('done');
+                    countElement.innerText = (itemKey === 'running') ? "1 / 1" : "100 / 100";
+                } else {
+                    element.classList.remove('done');
+                    countElement.innerText = (itemKey === 'running') ? "0 / 1" : "0 / 100";
+                }
+            });
+
+            // HD Anime Graphic Evolution Tiers (Alters vectors based on level milestone)
+            const auraElement = document.getElementById('monarch-aura');
+            const leftEye = document.getElementById('left-eye');
+            const rightEye = document.getElementById('right-eye');
+            const rankLabel = document.getElementById('display-rank');
+
+            if (systemData.level >= 10) {
+                rankLabel.innerText = "SHADOW SOVEREIGN";
+                auraElement.setAttribute('fill', '#0c0a1c');
+                auraElement.setAttribute('stroke', '#a855f7');
+                leftEye.setAttribute('fill', '#c084fc');
+                rightEye.setAttribute('fill', '#c084fc');
+            } else if (systemData.level >= 5) {
+                rankLabel.innerText = "S-RANK HUNTER";
+                auraElement.setAttribute('fill', '#070f1e');
+                auraElement.setAttribute('stroke', '#3b82f6');
+                leftEye.setAttribute('fill', '#60a5fa');
+                rightEye.setAttribute('fill', '#60a5fa');
+            } else {
+                rankLabel.innerText = "E-RANK HUNTER";
+                auraElement.setAttribute('fill', '#060814');
+                auraElement.setAttribute('stroke', '#00d2ff');
+                leftEye.setAttribute('fill', '#00d2ff');
+                rightEye.setAttribute('fill', '#00d2ff');
+            }
+
+            localStorage.setItem('monarchSystemConfig', JSON.stringify(systemData));
+        }
+
+        function triggerTask(key, xpReward, attribute) {
+            if (systemData.completed[key]) return;
+
+            systemData.completed[key] = true;
+            systemData.xp += xpReward;
+            systemData.stats[attribute] += 1;
+
+            if (systemData.xp >= systemData.xpMax) {
+                systemData.xp -= systemData.xpMax;
+                systemData.level += 1;
+                systemData.xpMax = Math.floor(systemData.xpMax * 1.4);
+                
+                // Flat level bonus allocation
+                systemData.stats.str += 2;
+                systemData.stats.agi += 2;
+                systemData.stats.int += 2;
+                systemData.stats.vit += 2;
+
+                const card = document.getElementById('main-card');
+                card.classList.add('flash-active');
+                setTimeout(() => card.classList.remove('flash-active'), 700);
+            }
+
+            drawSystemUI();
+        }
+
+        function clearDailyQuests() {
+            Object.keys(systemData.completed).forEach(k => systemData.completed[k] = false);
+            drawSystemUI();
+        }
+
+        drawSystemUI();
+    </script>
 </body>
 </html>
-
