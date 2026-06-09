@@ -3,500 +3,588 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solo Leveling System - Monarch Edition</title>
+    <title>Sovereign Core OS v10.1</title>
     <style>
         :root {
-            --neon-cyan: #00d2ff;
-            --neon-purple: #9333ea;
-            --dark-bg: #05070a;
-            --panel-bg: rgba(13, 17, 23, 0.85);
-            --border-glow: rgba(0, 210, 255, 0.25);
+            --quantum-cyan: #00f0ff;
+            --singularity-purple: #bc3ff7;
+            --dark-void: #020408;
+            --neural-surface: rgba(6, 10, 19, 0.75);
+            --matrix-glow: rgba(0, 240, 255, 0.15);
+            --plasma-red: #ff2a5f;
+            --amber-warn: #fbbf24;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Courier New', Courier, monospace, sans-serif;
+            font-family: 'Orbitron', 'Courier New', monospace;
+            letter-spacing: 0.5px;
         }
 
         body {
-            background-color: var(--dark-bg);
-            background-image: radial-gradient(circle at center, #0d1117 0%, var(--dark-bg) 100%);
-            color: #e2e8f0;
+            background-color: var(--dark-void);
+            background-image: 
+                radial-gradient(circle at 50% 10%, rgba(188, 63, 247, 0.12) 0%, transparent 60%),
+                radial-gradient(circle at 0% 100%, rgba(0, 240, 255, 0.08) 0%, transparent 40%);
+            color: #d1dcfa;
             min-height: 100vh;
-            padding: 15px;
+            padding: 20px 15px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            overflow-x: hidden;
         }
 
-        /* Top Warning & Header */
-        .system-alert {
+        /* Sci-Fi Grid Overlay Background Effect */
+        body::before {
+            content: " ";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 24, 38, 0.3) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(18, 24, 38, 0.3) 1px, transparent 1px);
+            background-size: 20px 20px;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Quantum System Banner */
+        .system-banner {
             width: 100%;
-            max-width: 420px;
-            background: rgba(0, 0, 0, 0.9);
-            border: 1px solid #f43f5e;
-            color: #f43f5e;
-            padding: 8px;
+            max-width: 440px;
+            background: linear-gradient(90deg, transparent, rgba(255, 42, 95, 0.15), transparent);
+            border-top: 1px solid var(--plasma-red);
+            border-bottom: 1px solid var(--plasma-red);
+            color: var(--plasma-red);
+            padding: 6px;
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 0.65rem;
             font-weight: bold;
-            letter-spacing: 2px;
-            margin-bottom: 15px;
-            border-radius: 4px;
-            box-shadow: 0 0 10px rgba(244, 63, 94, 0.2);
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 8px var(--plasma-red);
         }
 
-        .header-container {
+        /* Header Architecture */
+        .header-mainframe {
             width: 100%;
-            max-width: 420px;
+            max-width: 440px;
             text-align: center;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #1e293b;
-            padding-bottom: 15px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .header-mainframe::before {
+            content: "CORE LINK STABLE";
+            position: absolute;
+            top: -15px; left: 50%; transform: translateX(-50%);
+            font-size: 0.55rem; color: #4b5f88; letter-spacing: 2px;
         }
 
         .main-title {
-            font-size: 1.4rem;
-            font-weight: 900;
-            letter-spacing: 1px;
+            font-size: 1.15rem;
+            font-weight: 800;
             color: #ffffff;
-            text-shadow: 0 0 8px rgba(255,255,255,0.2);
-            line-height: 1.3;
+            text-transform: uppercase;
+            line-height: 1.4;
         }
 
         .neon-blue-text {
-            color: var(--neon-cyan);
-            text-shadow: 0 0 10px var(--neon-cyan);
+            color: var(--quantum-cyan);
+            text-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
             display: block;
-            font-size: 1.1rem;
-            margin-top: 5px;
+            font-size: 1.25rem;
+            margin-top: 4px;
         }
 
-        /* Level & Character Section */
-        .card-panel {
+        /* Main Neural Pod Card */
+        .neural-pod {
             width: 100%;
-            max-width: 420px;
-            background: var(--panel-bg);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 12px;
-            padding: 16px;
-            box-shadow: 0 0 20px var(--border-glow);
+            max-width: 440px;
+            background: var(--neural-surface);
+            border: 1px solid rgba(0, 240, 255, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 0 30px var(--matrix-glow), inset 0 0 15px rgba(0, 240, 255, 0.05);
+            backdrop-filter: blur(10px);
             margin-bottom: 20px;
+            position: relative;
         }
 
-        .avatar-frame {
+        /* Tech Bracket Corners */
+        .neural-pod::after {
+            content: ""; position: absolute; top: -1px; right: 20px; width: 40px; height: 1px; background: var(--quantum-cyan); box-shadow: 0 0 8px var(--quantum-cyan);
+        }
+
+        .biometric-frame {
             width: 100%;
-            height: 480px; /* Taller to fit the glorious 1000642150.jpg portrait layout properly */
-            border-radius: 8px;
+            height: 480px; 
+            border-radius: 10px;
             overflow: hidden;
             position: relative;
-            margin-bottom: 15px;
-            border: 1px solid #1e293b;
+            margin-bottom: 20px;
+            border: 1px solid rgba(75, 95, 136, 0.4);
             background: #000;
         }
 
-        /* Set to fit image perfectly */
+        /* Holographic Scanlines Overlay */
+        .biometric-frame::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 240, 255, 0.12) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            z-index: 2;
+            background-size: 100% 4px, 6px 100%;
+            pointer-events: none;
+        }
+
         .profile-img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            filter: brightness(0.9) contrast(1.05);
+            filter: contrast(1.1) brightness(0.85) saturate(1.1);
         }
 
         .level-overlay {
             position: absolute;
-            top: 12px;
-            left: 12px;
-            background: rgba(5, 7, 10, 0.85);
-            border: 1px solid var(--neon-cyan);
-            padding: 6px 14px;
-            border-radius: 4px;
-            font-weight: bold;
+            top: 15px;
+            left: 15px;
+            background: rgba(2, 4, 8, 0.9);
+            border-left: 3px solid var(--quantum-cyan);
+            padding: 6px 16px;
+            font-weight: 900;
             font-size: 1.1rem;
             color: #fff;
-            text-shadow: 0 0 5px var(--neon-cyan);
-            z-index: 2;
+            text-shadow: 0 0 8px var(--quantum-cyan);
+            z-index: 3;
         }
 
         .rank-overlay {
             position: absolute;
-            bottom: 12px;
-            right: 12px;
-            background: rgba(147, 51, 234, 0.3);
-            border: 1px solid var(--neon-purple);
-            padding: 4px 10px;
-            border-radius: 4px;
+            bottom: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, rgba(188, 63, 247, 0.45), rgba(2, 4, 8, 0.95));
+            border: 1px solid var(--singularity-purple);
+            padding: 6px 14px;
+            border-radius: 2px;
             font-size: 0.75rem;
             font-weight: bold;
-            letter-spacing: 1px;
-            color: #e9d5ff;
-            text-shadow: 0 0 5px var(--neon-purple);
-            z-index: 2;
+            color: #f3e8ff;
+            text-shadow: 0 0 6px var(--singularity-purple);
+            z-index: 3;
+            text-align: right;
+            max-width: 75%;
         }
 
-        /* Progress Bar */
-        .xp-wrapper {
-            margin-bottom: 5px;
-        }
-        .label-row {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-            color: #94a3b8;
-            font-weight: bold;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-        }
-        .bar-container {
-            height: 8px;
-            background: #0f172a;
-            border-radius: 4px;
-            overflow: hidden;
-            border: 1px solid #1e293b;
-        }
-        .bar-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #0072ff, var(--neon-cyan));
-            box-shadow: 0 0 8px var(--neon-cyan);
-            transition: width 0.4s ease;
-        }
-
-        /* Attribute Ability Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 10px;
-            border-radius: 6px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .stat-label {
-            font-size: 0.7rem;
-            color: #64748b;
-            text-transform: uppercase;
-            display: block;
-        }
-
-        .stat-value {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #f1f5f9;
-        }
-
-        /* Objectives Section */
-        .objectives-panel {
-            width: 100%;
-            max-width: 420px;
-            background: var(--panel-bg);
-            border: 1px solid #1e293b;
-            border-radius: 12px;
-            padding: 16px;
+        /* Quantum Sync Progress Bar */
+        .sync-container {
             margin-bottom: 20px;
         }
+        .sync-label-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.65rem;
+            color: #768eb2;
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+        .pulse-bar-bg {
+            height: 6px;
+            background: #060a12;
+            border-radius: 3px;
+            overflow: hidden;
+            border: 1px solid rgba(75, 95, 136, 0.2);
+        }
+        .pulse-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--singularity-purple), var(--quantum-cyan));
+            box-shadow: 0 0 10px var(--quantum-cyan);
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
 
-        .panel-title-row {
+        /* Attribute Ability Matrix Nodes */
+        .attribute-matrix {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .node-capsule {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(75, 95, 136, 0.15);
+            border-left: 2px solid rgba(0, 240, 255, 0.4);
+            padding: 10px 14px;
+            border-radius: 4px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #1e293b;
-            padding-bottom: 8px;
         }
 
-        .panel-title {
-            font-size: 0.85rem;
+        .node-lbl {
+            font-size: 0.65rem;
+            color: #556c93;
+            text-transform: uppercase;
+        }
+
+        .node-val {
+            font-size: 1.2rem;
             font-weight: bold;
-            letter-spacing: 1px;
-            color: #94a3b8;
+            color: #ffffff;
+            text-shadow: 0 0 5px rgba(255,255,255,0.1);
         }
 
-        /* Intensity Settings */
-        .intensity-box {
-            background: rgba(0, 210, 255, 0.04);
-            border: 1px dashed rgba(0, 210, 255, 0.3);
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 15px;
+        /* Mission Controller Engine Box */
+        .mission-panel {
+            width: 100%;
+            max-width: 440px;
+            background: var(--neural-surface);
+            border: 1px solid rgba(75, 95, 136, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.01);
         }
 
-        .intensity-header {
-            display: flex;
-            justify-content: space-between;
+        .panel-header-tag {
             font-size: 0.75rem;
             font-weight: bold;
-            color: var(--neon-cyan);
-            margin-bottom: 8px;
-            letter-spacing: 1px;
+            color: #768eb2;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(75, 95, 136, 0.2);
+            padding-bottom: 6px;
         }
 
-        .slider-input {
-            width: 100%;
-            accent-color: var(--neon-cyan);
-            cursor: pointer;
-            background: #0f172a;
-            height: 6px;
-            border-radius: 3px;
-        }
-
-        .task-item {
-            background: rgba(5, 7, 10, 0.5);
-            border: 1px solid #1e293b;
+        /* Intensity Configurator Console */
+        .intensity-console {
+            background: rgba(0, 240, 255, 0.03);
+            border: 1px solid rgba(0, 240, 255, 0.15);
             border-radius: 8px;
-            padding: 12px;
+            padding: 14px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .console-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.65rem;
+            font-weight: 1000;
+            color: var(--quantum-cyan);
             margin-bottom: 10px;
+        }
+
+        .console-slider {
+            width: 100%;
+            accent-color: var(--quantum-cyan);
+            cursor: pointer;
+            background: #020408;
+            height: 4px;
+            border-radius: 2px;
+            outline: none;
+        }
+
+        /* Holographic Mission List Nodes */
+        .neural-task-node {
+            background: rgba(2, 4, 8, 0.4);
+            border: 1px solid rgba(75, 95, 136, 0.2);
+            border-radius: 8px;
+            padding: 14px;
+            margin-bottom: 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .neural-task-node:hover {
+            border-color: rgba(0, 240, 255, 0.5);
+            background: rgba(0, 240, 255, 0.02);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.05);
+        }
+
+        .neural-task-node.secured {
+            border-color: rgba(0, 255, 163, 0.3);
+            background: rgba(0, 255, 163, 0.02);
+        }
+
+        /* Specific style rule for study task variant coloring */
+        #task-study {
+            border-left: 2px solid var(--amber-warn);
+        }
+        #task-study:hover {
+            border-color: var(--amber-warn);
+            box-shadow: 0 0 15px rgba(251, 191, 36, 0.1);
+        }
+        #task-study.secured {
+            border-color: rgba(0, 255, 163, 0.3);
+        }
+
+        .task-title-line {
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+
+        .task-yield-meta {
+            font-size: 0.6rem;
+            color: #556c93;
+            margin-top: 4px;
+        }
+
+        .task-progress-status {
+            font-size: 0.75rem;
+            color: #768eb2;
+            font-weight: bold;
+        }
+
+        .neural-task-node.secured .task-progress-status {
+            color: #00ffa3;
+            text-shadow: 0 0 8px rgba(0, 255, 163, 0.4);
+        }
+
+        /* Action Center Controls */
+        .terminal-actions-row {
+            width: 100%;
+            max-width: 440px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .core-btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
             transition: all 0.2s ease;
         }
 
-        .task-item:hover {
-            border-color: rgba(0, 212, 255, 0.4);
-            background: rgba(0, 212, 255, 0.02);
+        .btn-ambient {
+            background: transparent;
+            border: 1px solid rgba(75, 95, 136, 0.4);
+            color: #768eb2;
         }
 
-        .task-item.done {
-            border-color: rgba(16, 185, 129, 0.4);
-            background: rgba(16, 185, 129, 0.03);
+        .btn-ambient:hover {
+            background: rgba(255, 255, 255, 0.03);
+            color: #ffffff;
+            border-color: #768eb2;
         }
 
-        .task-name {
-            font-size: 0.9rem;
-            font-weight: bold;
-            color: #e2e8f0;
+        .btn-destruct {
+            background: rgba(255, 42, 95, 0.05);
+            border: 1px solid rgba(255, 42, 95, 0.3);
+            color: var(--plasma-red);
+            text-shadow: 0 0 5px rgba(255, 42, 95, 0.2);
         }
 
-        .task-reward {
-            font-size: 0.65rem;
-            color: #64748b;
-            margin-top: 2px;
+        .btn-destruct:hover {
+            background: rgba(255, 42, 95, 0.15);
+            border-color: var(--plasma-red);
+            box-shadow: 0 0 15px rgba(255, 42, 95, 0.15);
         }
 
-        .task-count {
-            font-size: 0.8rem;
-            color: #64748b;
-            font-weight: bold;
+        @keyframes singularityFlash {
+            0% { border-color: rgba(0, 240, 255, 0.2); box-shadow: 0 0 30px var(--matrix-glow); }
+            50% { border-color: var(--singularity-purple); box-shadow: 0 0 45px rgba(188, 63, 247, 0.5); }
+            100% { border-color: rgba(0, 240, 255, 0.2); box-shadow: 0 0 30px var(--matrix-glow); }
         }
-
-        .task-item.done .task-count {
-            color: #10b981;
-        }
-
-        /* Action Buttons Box */
-        .btn-group {
-            width: 100%;
-            max-width: 420px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .action-btn {
-            width: 100%;
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            letter-spacing: 1px;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: all 0.2s;
-        }
-
-        .daily-reset-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid #334155;
-            color: #94a3b8;
-        }
-
-        .daily-reset-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            color: #fff;
-        }
-
-        .danger-reset-btn {
-            background: rgba(244, 63, 94, 0.1);
-            border: 1px solid rgba(244, 63, 94, 0.4);
-            color: #f43f5e;
-            box-shadow: 0 0 10px rgba(244, 63, 94, 0.05);
-        }
-
-        .danger-reset-btn:hover {
-            background: rgba(244, 63, 94, 0.25);
-            box-shadow: 0 0 15px rgba(244, 63, 94, 0.2);
-        }
-
-        @keyframes levelUpFlash {
-            0% { border-color: rgba(0, 212, 255, 0.3); box-shadow: 0 0 20px var(--border-glow); }
-            50% { border-color: #9333ea; box-shadow: 0 0 35px rgba(147, 51, 234, 0.6); }
-            100% { border-color: rgba(0, 212, 255, 0.3); box-shadow: 0 0 20px var(--border-glow); }
-        }
-        .flash-active {
-            animation: levelUpFlash 0.7s ease-in-out;
+        .evolution-pulse {
+            animation: singularityFlash 0.8s ease-in-out;
         }
     </style>
 </head>
 <body>
 
     <!-- SYSTEM ALERTS -->
-    <div class="system-alert">
-        ⚠️ WARNING: SYSTEM OVERLOAD
+    <div class="system-banner">
+        // NEURAL CONSTRUCT ACTIVE: SINGULARITY MODE
     </div>
 
     <!-- HEADER -->
-    <div class="header-container">
+    <div class="header-mainframe">
         <h1 class="main-title">
-            DAILY QUEST:
-            <span class="neon-blue-text">PREPARATION TO BECOME STRONGER</span>
+            QUANTUM SYSTEM EVOLUTION:
+            <span class="neon-blue-text">MONARCH GENERATION</span>
         </h1>
     </div>
 
-    <!-- MAIN DISPLAY CARD -->
-    <div id="main-card" class="card-panel">
-        <div class="avatar-frame">
-            <!-- Image loaded directly via premium external mirror link matching 1000642150.jpg -->
-            <img src="https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=600&auto=format&fit=crop" class="profile-img" alt="Shadow Sovereign">
+    <!-- MAIN DISPLAY POD CARD -->
+    <div id="main-pod" class="neural-pod">
+        <div class="biometric-frame">
+            <!-- Framed Portrait referencing 1000642150.jpg verbatim -->
+            <img src="1000642150.jpg" class="profile-img" alt="Shadow Monarch Biometrics">
             
             <div id="display-lv" class="level-overlay">LV. 1</div>
-            <div id="display-rank" class="rank-overlay">SHADOW SOVEREIGN</div>
+            <div id="display-rank" class="rank-overlay">LOADING TIER...</div>
         </div>
 
-        <!-- Experience Progress Section -->
-        <div class="xp-wrapper">
-            <div class="label-row">
-                <span>SYSTEM SYNCHRONIZATION</span>
+        <!-- Experience Synchronization Engine -->
+        <div class="sync-container">
+            <div class="sync-label-row">
+                <span>NEURAL CORE INTEGRATION</span>
                 <span id="xp-text">0 / 100 XP</span>
             </div>
-            <div class="bar-container">
-                <div id="xp-bar" class="bar-fill"></div>
+            <div class="pulse-bar-bg">
+                <div id="xp-bar" class="pulse-bar-fill"></div>
             </div>
         </div>
 
-        <!-- Attribute Ability Grid -->
-        <div class="stats-grid">
-            <div class="stat-card">
+        <!-- Attribute Ability Matrix Nodes -->
+        <div class="attribute-matrix">
+            <div class="node-capsule">
                 <div>
-                    <span class="stat-label">Strength</span>
-                    <span id="stat-str" class="stat-value">0</span>
+                    <span class="node-lbl">STRENGTH</span>
+                    <span id="stat-str" class="node-val">0</span>
                 </div>
             </div>
-            <div class="stat-card">
+            <div class="node-capsule">
                 <div>
-                    <span class="stat-label">Agility</span>
-                    <span id="stat-agi" class="stat-value">0</span>
+                    <span class="node-lbl">AGILITY</span>
+                    <span id="stat-agi" class="node-val">0</span>
                 </div>
             </div>
-            <div class="stat-card">
+            <div class="node-capsule">
                 <div>
-                    <span class="stat-label">Intelligence</span>
-                    <span id="stat-int" class="stat-value">0</span>
+                    <span class="node-lbl">INTELLIGENCE</span>
+                    <span id="stat-int" class="node-val">0</span>
                 </div>
             </div>
-            <div class="stat-card">
+            <div class="node-capsule">
                 <div>
-                    <span class="stat-label">Vitality</span>
-                    <span id="stat-vit" class="stat-value">0</span>
+                    <span class="node-lbl">VITALITY</span>
+                    <span id="stat-vit" class="node-val">0</span>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- QUEST OBJECTIVES -->
-    <div class="objectives-panel">
-        <div class="panel-title-row">
-            <span class="panel-title">ACTIVE MISSIONS (PENALTY IN 6H)</span>
-        </div>
+    <!-- MISSIONS CORE PANEL -->
+    <div class="mission-panel">
+        <div class="panel-header-tag">// CHRONO-OBJECTIVE SCHEDULER</div>
 
-        <!-- INTENSITY CONTROLLER -->
-        <div class="intensity-box">
-            <div class="intensity-header">
-                <span>QUEST INTENSITY MATRIX</span>
-                <span id="intensity-badge">⚡ NORMAL (1.0x)</span>
+        <!-- SUB-SPACE INTENSITY CONFIGURATION MATRIX -->
+        <div class="intensity-console">
+            <div class="console-meta">
+                <span>INTENSITY SELECTION</span>
+                <span id="intensity-badge">⚡ NORMAL ENGINE (1.0x)</span>
             </div>
-            <input type="range" id="intensity-slider" class="slider-input" min="0.5" max="3" step="0.5" value="1" oninput="changeIntensity(this.value)">
+            <input type="range" id="intensity-slider" class="console-slider" min="0.5" max="3" step="0.5" value="1" oninput="changeIntensity(this.value)">
         </div>
 
         <!-- Tasks Matrix -->
-        <div id="task-pushups" onclick="triggerTask('pushups', 'str')" class="task-item">
+        <div id="task-pushups" onclick="triggerTask('pushups', 'str')" class="neural-task-node">
             <div>
-                <div class="task-name">Push-ups</div>
-                <div id="reward-pushups" class="task-reward">Reward: Loading...</div>
+                <div class="task-title-line">Push-ups</div>
+                <div id="reward-pushups" class="task-yield-meta">Yield: Loading Data Matrix...</div>
             </div>
-            <div id="count-pushups" class="task-count">0 / 100</div>
+            <div id="count-pushups" class="task-progress-status">0 / 100</div>
         </div>
 
-        <div id="task-situps" onclick="triggerTask('situps', 'vit')" class="task-item">
+        <div id="task-situps" onclick="triggerTask('situps', 'vit')" class="neural-task-node">
             <div>
-                <div class="task-name">Sit-ups</div>
-                <div id="reward-situps" class="task-reward">Reward: Loading...</div>
+                <div class="task-title-line">Sit-ups</div>
+                <div id="reward-situps" class="task-yield-meta">Yield: Loading Data Matrix...</div>
             </div>
-            <div id="count-situps" class="task-count">0 / 100</div>
+            <div id="count-situps" class="task-progress-status">0 / 100</div>
         </div>
 
-        <div id="task-squats" onclick="triggerTask('squats', 'agi')" class="task-item">
+        <div id="task-squats" onclick="triggerTask('squats', 'agi')" class="neural-task-node">
             <div>
-                <div class="task-name">Squats</div>
-                <div id="reward-squats" class="task-reward">Reward: Loading...</div>
+                <div class="task-title-line">Squats</div>
+                <div id="reward-squats" class="task-yield-meta">Yield: Loading Data Matrix...</div>
             </div>
-            <div id="count-squats" class="task-count">0 / 100</div>
+            <div id="count-squats" class="task-progress-status">0 / 100</div>
         </div>
 
-        <div id="task-running" onclick="triggerTask('running', 'int')" class="task-item">
+        <div id="task-running" onclick="triggerTask('running', 'int')" class="neural-task-node">
             <div>
-                <div class="task-name">Running Distance</div>
-                <div id="reward-running" class="task-reward">Reward: Loading...</div>
+                <div class="task-title-line">Sub-Light Kinetic Run</div>
+                <div id="reward-running" class="task-yield-meta">Yield: Loading Data Matrix...</div>
             </div>
-            <div id="count-running" class="task-count">0 / 10</div>
+            <div id="count-running" class="task-progress-status">0 / 10</div>
+        </div>
+
+        <!-- NEW STUDY TIME TASK NODE -->
+        <div id="task-study" onclick="triggerTask('study', 'int')" class="neural-task-node">
+            <div>
+                <div class="task-title-line">🧠 Neural Assimilation (Study Time)</div>
+                <div id="reward-study" class="task-yield-meta">Yield: Loading Data Matrix...</div>
+            </div>
+            <div id="count-study" class="task-progress-status">0 / 1 Hr</div>
         </div>
     </div>
 
-    <!-- SYSTEM CONTROL PANEL -->
-    <div class="btn-group">
-        <button class="action-btn daily-reset-btn" onclick="clearDailyQuests()">Reset Daily Quests Only</button>
-        <button class="action-btn danger-reset-btn" onclick="systemResetToZero()">☠️ Full System Reset To Zero</button>
+    <!-- TERMINAL CONTROL ACTIONS -->
+    <div class="terminal-actions-row">
+        <button class="core-btn btn-ambient" onclick="clearDailyQuests()">Cycle Current Objectives Only</button>
+        <button class="core-btn btn-destruct" onclick="systemResetToZero()">💥 Full Core Reset To Zero</button>
     </div>
 
     <script>
-        // System Config Data Engine
+        // Immersive Solo Leveling Rank Database Index Array
+        const levelTitles = {
+            1: "E-RANK HUNTER (Weakest Weapon)",
+            2: "E-RANK HUNTER (D-Double Dungeon Survivor)",
+            3: "D-RANK HUNTER (Breaking Limits)",
+            4: "D-RANK HUNTER (System Chosen)",
+            5: "C-RANK HUNTER (Trial Conqueror)",
+            6: "C-RANK HUNTER (Shadow Awakening)",
+            7: "B-RANK HUNTER (Necromancer Core)",
+            8: "B-RANK HUNTER (Demon Castle Challenger)",
+            9: "A-RANK HUNTER (Monarch Prototype)",
+            10: "A-RANK HUNTER (The Shadow Lord)",
+            11: "S-RANK HUNTER (Jeju Island Terror)",
+            12: "S-RANK HUNTER (National Level Threat)",
+            13: "S-RANK HUNTER (Sovereign Vessel)",
+            14: "MONARCH TIER (Death's True Heir)",
+            15: "MONARCH TIER (Shadow Army Commander)",
+            16: "SHADOW MONARCH (Lord of the Dead)",
+            17: "SHADOW MONARCH (Ruler of Netherworld)",
+            18: "SHADOW MONARCH (Eternal Darkness Origin)",
+            19: "SUPREME GOD OF SHADOWS (Absolute Domain)",
+            20: "SUNG JINWOO (The Only True Singularity)"
+        };
+
+        // System Configuration Engine Array Schema
         let systemData = {
             level: 1,
             xp: 0,
             xpMax: 100,
             intensity: 1.0, 
             stats: { str: 0, agi: 0, int: 0, vit: 0 },
-            completed: { pushups: false, situps: false, squats: false, running: false }
+            completed: { pushups: false, situps: false, squats: false, running: false, study: false }
         };
 
-        const baseTargets = { pushups: 100, situps: 100, squats: 100, running: 10 };
-        const baseRewards = { pushups: 10, situps: 10, squats: 10, running: 20 };
+        // Added 'study' config arrays to calculate base targets/rewards dynamically
+        const baseTargets = { pushups: 100, situps: 100, squats: 100, running: 10, study: 1 };
+        const baseRewards = { pushups: 10, situps: 10, squats: 10, running: 20, study: 25 };
 
         if (localStorage.getItem('monarchSystemConfig')) {
             systemData = JSON.parse(localStorage.getItem('monarchSystemConfig'));
+            // Fix edge case migration bug if 'study' doesn't exist in historical JSON structures
+            if (systemData.completed.study === undefined) {
+                systemData.completed.study = false;
+            }
         }
 
         function changeIntensity(val) {
             systemData.intensity = parseFloat(val);
             
             const label = document.getElementById('intensity-badge');
-            if(val == 0.5) label.innerText = "🍃 CASUAL (0.5x)";
-            else if(val == 1.0) label.innerText = "⚡ NORMAL (1.0x)";
-            else if(val == 1.5) label.innerText = "🔥 HARD (1.5x)";
-            else if(val == 2.0) label.innerText = "💀 NIGHTMARE (2.0x)";
-            else if(val == 2.5) label.innerText = "👹 DEMONIC (2.5x)";
-            else if(val == 3.0) label.innerText = "👑 MONARCH (3.0x)";
+            if(val == 0.5) label.innerText = "🍃 CASUAL CALIBRATION (0.5x)";
+            else if(val == 1.0) label.innerText = "⚡ NORMAL ENGINE (1.0x)";
+            else if(val == 1.5) label.innerText = "🔥 OVERCLOCK MATRIX (1.5x)";
+            else if(val == 2.0) label.innerText = "💀 NIGHTMARE CORE (2.0x)";
+            else if(val == 2.5) label.innerText = "👹 DEMONIC SINGULARITY (2.5x)";
+            else if(val == 3.0) label.innerText = "👑 SOVEREIGN ARCHTYPE (3.0x)";
 
             drawSystemUI();
         }
@@ -513,26 +601,40 @@
             document.getElementById('stat-int').innerText = systemData.stats.int;
             document.getElementById('stat-vit').innerText = systemData.stats.vit;
 
+            // Compute Dynamically Named Rank Title
+            const rankLabel = document.getElementById('display-rank');
+            if (systemData.level > 20) {
+                rankLabel.innerText = "GOD-TIER SOVEREIGN 👑";
+            } else {
+                rankLabel.innerText = levelTitles[systemData.level] || "UNKNOWN LIFEFORM ENTITY";
+            }
+
             Object.keys(systemData.completed).forEach(key => {
                 const element = document.getElementById(`task-${key}`);
                 const rewardElement = document.getElementById(`reward-${key}`);
                 const countElement = document.getElementById(`count-${key}`);
                 
-                const adjustedTarget = Math.round(baseTargets[key] * systemData.intensity);
+                // Scale target intensity multiplier parameters
+                let adjustedTarget = Math.round(baseTargets[key] * systemData.intensity);
+                if (key === 'study' && adjustedTarget < 1) adjustedTarget = 1; // Safeguard 1 hour minimum floor limit
+                
                 const adjustedXp = Math.round(baseRewards[key] * systemData.intensity);
                 const adjustedStatBonus = Math.max(1, Math.round(1 * systemData.intensity));
                 
-                const statName = key === 'pushups' ? 'Strength' : key === 'situps' ? 'Vitality' : key === 'squats' ? 'Agility' : 'Intelligence';
-                const unit = key === 'running' ? 'KM' : 'Reps';
+                const statName = key === 'pushups' ? 'STR' : key === 'situps' ? 'VIT' : key === 'squats' ? 'AGI' : 'INT';
+                
+                let unit = 'Cycles';
+                if (key === 'running') unit = 'KM';
+                if (key === 'study') unit = adjustedTarget === 1 ? 'Hour' : 'Hours';
 
-                rewardElement.innerText = `Reward: +${adjustedXp} XP / +${adjustedStatBonus} ${statName}`;
+                rewardElement.innerText = `Yield: +${adjustedXp} XP / +${adjustedStatBonus} ${statName}`;
 
                 if (systemData.completed[key]) {
-                    element.classList.add('done');
-                    countElement.innerText = `${adjustedTarget} / ${adjustedTarget} ${unit}`;
+                    element.classList.add('secured');
+                    countElement.innerText = `${adjustedTarget}/${adjustedTarget} ${unit}`;
                 } else {
-                    element.classList.remove('done');
-                    countElement.innerText = `0 / ${adjustedTarget} ${unit}`;
+                    element.classList.remove('secured');
+                    countElement.innerText = `0/${adjustedTarget} ${unit}`;
                 }
             });
 
@@ -559,9 +661,9 @@
                 systemData.stats.int += 2;
                 systemData.stats.vit += 2;
 
-                const card = document.getElementById('main-card');
-                card.classList.add('flash-active');
-                setTimeout(() => card.classList.remove('flash-active'), 700);
+                const pod = document.getElementById('main-pod');
+                pod.classList.add('evolution-pulse');
+                setTimeout(() => pod.classList.remove('evolution-pulse'), 800);
             }
 
             drawSystemUI();
@@ -572,22 +674,21 @@
             drawSystemUI();
         }
 
-        // NEW Full Hard Reset Logic Array
         function systemResetToZero() {
-            if (confirm("WARNING:\nAre you sure you want to reset EVERYTHING back to zero? Your levels and attributes will be wiped completely.")) {
+            if (confirm("CRITICAL INTERFACES TERMINATION ALERT:\nDo you want to initialize absolute core data destruction? This completely resets levels and core attributes to 0.")) {
                 systemData = {
                     level: 1,
                     xp: 0,
                     xpMax: 100,
                     intensity: 1.0, 
                     stats: { str: 0, agi: 0, int: 0, vit: 0 },
-                    completed: { pushups: false, situps: false, squats: false, running: false }
+                    completed: { pushups: false, situps: false, squats: false, running: false, study: false }
                 };
                 changeIntensity(1.0);
             }
         }
 
-        // Initialize values on start
+        // Run boot sequence initialization
         changeIntensity(systemData.intensity);
     </script>
 </body>
