@@ -13,6 +13,7 @@
             --matrix-glow: rgba(0, 240, 255, 0.15);
             --plasma-red: #ff2a5f;
             --amber-warn: #fbbf24;
+            --level-color: #00f0ff;
         }
 
         * {
@@ -73,13 +74,6 @@
             position: relative;
         }
 
-        .header-mainframe::before {
-            content: "BIOMETRIC LINK ONLINE";
-            position: absolute;
-            top: -15px; left: 50%; transform: translateX(-50%);
-            font-size: 0.55rem; color: #4b5f88; letter-spacing: 2px;
-        }
-
         .main-title {
             font-size: 1.15rem;
             font-weight: 800;
@@ -109,7 +103,7 @@
             position: relative;
         }
 
-        /* Biometric Frame & Avatar Layout */
+        /* Upgraded Profile Avatar Frame */
         .biometric-frame {
             width: 100%;
             height: 180px; 
@@ -125,49 +119,40 @@
             overflow: hidden;
         }
 
-        .biometric-frame::before {
-            content: " ";
-            display: block;
-            position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 240, 255, 0.06) 50%);
-            z-index: 1;
-            background-size: 100% 4px;
-            pointer-events: none;
-        }
-
-        .profile-avatar-container {
-            width: 75px;
-            height: 75px;
+        .profile-photo-node {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
             position: relative;
-            margin-bottom: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: radial-gradient(circle, rgba(6,10,19,1) 0%, rgba(2,4,8,1) 100__);
+            border: 2px solid var(--level-color);
+            box-shadow: 0 0 20px var(--level-color);
+            transition: all 0.6s ease-in-out;
         }
 
-        .hologram-pulse-circle {
+        /* Holographic leveling pattern lines inside the avatar */
+        .avatar-internal-mesh {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px solid var(--quantum-cyan);
+            width: 85%;
+            height: 85%;
             border-radius: 50%;
-            box-shadow: 0 0 15px var(--quantum-cyan);
-            animation: pulseWave 2.5s infinite ease-in-out;
-            z-index: 1;
+            border: 1px dashed rgba(0, 240, 255, 0.4);
+            animation: spinMesh 10s linear infinite;
         }
 
-        .avatar-graphics {
-            font-size: 2rem;
-            z-index: 2;
-            filter: drop-shadow(0 0 8px var(--quantum-cyan));
-            transition: all 0.5s ease;
+        @keyframes spinMesh {
+            100% { transform: rotate(360deg); }
         }
 
-        @keyframes pulseWave {
-            0% { transform: scale(0.95); opacity: 0.6; box-shadow: 0 0 10px var(--quantum-cyan); }
-            50% { transform: scale(1.08); opacity: 1; box-shadow: 0 0 20px var(--singularity-purple), 0 0 30px rgba(0, 240, 255, 0.4); }
-            100% { transform: scale(0.95); opacity: 0.6; box-shadow: 0 0 10px var(--quantum-cyan); }
+        .level-badge-center {
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 0 0 10px var(--level-color);
+            z-index: 5;
         }
 
         .level-overlay {
@@ -178,9 +163,8 @@
             border-left: 3px solid var(--quantum-cyan);
             padding: 4px 12px;
             font-weight: 900;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
             color: #fff;
-            text-shadow: 0 0 8px var(--quantum-cyan);
         }
 
         .rank-overlay {
@@ -191,7 +175,7 @@
             border: 1px solid var(--singularity-purple);
             padding: 4px 10px;
             border-radius: 2px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: bold;
             color: #f3e8ff;
             text-shadow: 0 0 6px var(--singularity-purple);
@@ -220,7 +204,7 @@
             width: 0%;
             background: linear-gradient(90deg, var(--singularity-purple), var(--quantum-cyan));
             box-shadow: 0 0 10px var(--quantum-cyan);
-            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: width 0.4s ease;
         }
 
         .attribute-matrix {
@@ -232,18 +216,16 @@
         .node-capsule {
             background: rgba(255, 255, 255, 0.01);
             border: 1px solid rgba(75, 95, 136, 0.15);
-            border-left: 2px solid rgba(0, 240, 255, 0.4);
+            border-left: 2px solid var(--quantum-cyan);
             padding: 10px 14px;
             border-radius: 4px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         .node-lbl {
             font-size: 0.65rem;
             color: #556c93;
-            text-transform: uppercase;
+            display: block;
+            margin-bottom: 20px;
         }
 
         .node-val {
@@ -271,6 +253,64 @@
             padding-bottom: 6px;
         }
 
+        /* Configuration Console Dashboard */
+        .editor-dashboard {
+            background: rgba(188, 63, 247, 0.05);
+            border: 1px solid rgba(188, 63, 247, 0.25);
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 20px;
+        }
+
+        .editor-title-lbl {
+            font-size: 0.7rem;
+            color: #c084fc;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .edit-row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .editor-dropdown {
+            width: 100%;
+            background: #020408;
+            border: 1px solid rgba(188, 63, 247, 0.4);
+            color: #fff;
+            padding: 8px;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .editor-input-field {
+            width: 100%;
+            background: #020408;
+            border: 1px solid rgba(75, 95, 136, 0.3);
+            color: #fff;
+            padding: 8px;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .apply-btn {
+            background: linear-gradient(90deg, #bc3ff7, #00f0ff);
+            border: none;
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+        }
+
         .intensity-console {
             background: rgba(0, 240, 255, 0.03);
             border: 1px solid rgba(0, 240, 255, 0.15);
@@ -291,70 +331,10 @@
         .console-slider {
             width: 100%;
             accent-color: var(--quantum-cyan);
-            cursor: pointer;
             background: #020408;
             height: 6px;
-            border-radius: 2px;
+            border-radius: 3px;
             outline: none;
-        }
-
-        /* Mission Editor Tool Module */
-        .editor-box {
-            background: rgba(188, 63, 247, 0.04);
-            border: 1px solid rgba(188, 63, 247, 0.2);
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 20px;
-        }
-        .editor-title {
-            font-size: 0.65rem;
-            color: #c084fc;
-            font-weight: bold;
-            margin-bottom: 8px;
-            text-transform: uppercase;
-        }
-        .editor-select-row {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-        .editor-select {
-            flex: 1;
-            background: #060a12;
-            border: 1px solid rgba(188, 63, 247, 0.3);
-            color: #fff;
-            padding: 6px;
-            font-size: 0.75rem;
-            border-radius: 4px;
-            outline: none;
-        }
-        .editor-input {
-            width: 100%;
-            background: #060a12;
-            border: 1px solid rgba(75, 95, 136, 0.3);
-            color: #fff;
-            padding: 8px;
-            font-size: 0.75rem;
-            border-radius: 4px;
-            margin-bottom: 8px;
-            outline: none;
-        }
-        .editor-num-row {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-        .editor-btn {
-            background: rgba(188, 63, 247, 0.2);
-            border: 1px solid var(--singularity-purple);
-            color: #fff;
-            font-size: 0.65rem;
-            padding: 8px;
-            text-transform: uppercase;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            width: 100%;
         }
 
         .neural-task-node {
@@ -367,27 +347,19 @@
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .neural-task-node:hover {
-            border-color: rgba(0, 240, 255, 0.5);
-            background: rgba(0, 240, 255, 0.02);
         }
 
         .neural-task-node.secured {
             border-color: rgba(0, 255, 163, 0.3);
-            background: rgba(0, 255, 163, 0.02);
+            background: rgba(0, 255, 163, 0.03);
         }
 
-        #task-study { border-left: 2px solid var(--amber-warn); }
+        #task-study { border-left: 3px solid var(--amber-warn); }
 
         .task-title-line {
             font-size: 0.85rem;
             font-weight: bold;
             color: #ffffff;
-            max-width: 260px;
-            word-wrap: break-word;
         }
 
         .task-yield-meta {
@@ -397,10 +369,9 @@
         }
 
         .task-progress-status {
-            font-size: 0.75rem;
+            font-size: 0.8rem;
             color: #768eb2;
             font-weight: bold;
-            white-space: nowrap;
         }
 
         .neural-task-node.secured .task-progress-status {
@@ -424,7 +395,6 @@
             font-weight: bold;
             cursor: pointer;
             text-transform: uppercase;
-            transition: all 0.2s ease;
         }
 
         .btn-ambient {
@@ -433,57 +403,41 @@
             color: #768eb2;
         }
 
-        .btn-ambient:hover {
-            background: rgba(255, 255, 255, 0.03);
-            color: #ffffff;
-        }
-
         .btn-destruct {
             background: rgba(255, 42, 95, 0.05);
             border: 1px solid rgba(255, 42, 95, 0.3);
             color: var(--plasma-red);
         }
 
-        .btn-destruct:hover {
-            background: rgba(255, 42, 95, 0.15);
-            border-color: var(--plasma-red);
-        }
-
         @keyframes singularityFlash {
-            0% { border-color: rgba(0, 240, 255, 0.2); box-shadow: 0 0 30px var(--matrix-glow); }
-            50% { border-color: var(--singularity-purple); box-shadow: 0 0 45px rgba(188, 63, 247, 0.5); }
-            100% { border-color: rgba(0, 240, 255, 0.2); box-shadow: 0 0 30px var(--matrix-glow); }
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); border-color: var(--singularity-purple); }
+            100% { transform: scale(1); }
         }
         .evolution-pulse {
-            animation: singularityFlash 0.8s ease-in-out;
+            animation: singularityFlash 0.6s ease-in-out;
         }
     </style>
 </head>
 <body>
 
-    <div class="system-banner">
-        // LIFELONG PERFORMANCE HUB ACTIVE
-    </div>
+    <div class="system-banner">// LIFELONG PERFORMANCE HUB ACTIVE</div>
 
     <div class="header-mainframe">
-        <h1 class="main-title">
-            REAL-WORLD ARCHITECTURE:
-            <span class="neon-blue-text">PERSONAL EVOLUTION CORE</span>
-        </h1>
+        <h1 class="main-title">REAL-WORLD ARCHITECTURE:<span class="neon-blue-text">PERSONAL EVOLUTION CORE</span></h1>
     </div>
 
-    <!-- MAIN DISPLAY CORE MODULE -->
+    <!-- CENTRAL POD -->
     <div id="main-pod" class="neural-pod">
         <div class="biometric-frame">
-            <div class="profile-avatar-container">
-                <div class="hologram-pulse-circle"></div>
-                <!-- Dynamic Profile Photo Overlay -->
-                <div id="avatar-img" class="avatar-graphics">👤</div>
+            <!-- Dynamic Upgrading Visual Photo Frame -->
+            <div id="photo-node" class="profile-photo-node">
+                <div class="avatar-internal-mesh"></div>
+                <div id="avatar-text-level" class="level-badge-center">1</div>
             </div>
-            <div style="font-size: 0.6rem; color: #768eb2; text-transform: uppercase; letter-spacing: 2px; margin-top: 5px;">Biometric Synchronizer</div>
             
             <div id="display-lv" class="level-overlay">LV. 1</div>
-            <div id="display-rank" class="rank-overlay">LOADING RANK INDEX...</div>
+            <div id="display-rank" class="rank-overlay">INITIALIZING INDEX...</div>
         </div>
 
         <div class="sync-container">
@@ -496,111 +450,92 @@
             </div>
         </div>
 
-        <!-- Metrics Matrix -->
         <div class="attribute-matrix">
-            <div class="node-capsule">
-                <div>
-                    <span class="node-lbl">STRENGTH</span>
-                    <span id="stat-str" class="node-val">0</span>
-                </div>
-            </div>
-            <div class="node-capsule">
-                <div>
-                    <span class="node-lbl">DISCIPLINE</span>
-                    <span id="stat-agi" class="node-val">0</span>
-                </div>
-            </div>
-            <div class="node-capsule">
-                <div>
-                    <span class="node-lbl">INTELLIGENCE</span>
-                    <span id="stat-int" class="node-val">0</span>
-                </div>
-            </div>
-            <div class="node-capsule">
-                <div>
-                    <span class="node-lbl">VITALITY</span>
-                    <span id="stat-vit" class="node-val">0</span>
-                </div>
-            </div>
+            <div class="node-capsule"><span class="node-lbl">STRENGTH</span><span id="stat-str" class="node-val">0</span></div>
+            <div class="node-capsule"><span class="node-lbl">DISCIPLINE</span><span id="stat-agi" class="node-val">0</span></div>
+            <div class="node-capsule"><span class="node-lbl">INTELLIGENCE</span><span id="stat-int" class="node-val">0</span></div>
+            <div class="node-capsule"><span class="node-lbl">VITALITY</span><span id="stat-vit" class="node-val">0</span></div>
         </div>
     </div>
 
-    <!-- OBJECTIVES CORE PANEL -->
+    <!-- MISSION CONSOLE -->
     <div class="mission-panel">
-        <div class="panel-header-tag">// STRATEGIC OBJECTIVE MATRIX</div>
+        <div class="panel-header-tag">// STRATEGIC MATRIX PANEL</div>
 
-        <!-- LIVE MISSION MATRIX EDITOR -->
-        <div class="editor-box">
-            <div class="editor-title">🔧 Modify System Matrix Configuration</div>
-            <div class="editor-select-row">
-                <select id="edit-select-node" class="editor-select" onchange="loadMissionToEditor()">
-                    <option value="pushups">Mission 1: Calisthenics</option>
-                    <option value="situps">Mission 2: Core Endurance</option>
-                    <option value="squats">Mission 3: Lower Body</option>
-                    <option value="running">Mission 4: Cardio Capacity</option>
-                    <option value="study">Mission 5: Cognitive Work</option>
+        <!-- LIVE MISSION CUSTOMIZER ENGINE -->
+        <div class="editor-dashboard">
+            <div class="editor-title-lbl">🔧 Custom Mission Configurator</div>
+            <div class="edit-row">
+                <select id="editor-select" class="editor-dropdown" onchange="loadMissionToInputs()">
+                    <option value="pushups">Mission 1: Push-ups Node</option>
+                    <option value="situps">Mission 2: Sit-ups Node</option>
+                    <option value="squats">Mission 3: Squats Node</option>
+                    <option value="running">Mission 4: Running Node</option>
+                    <option value="study">Mission 5: Study Node</option>
                 </select>
             </div>
-            <input type="text" id="edit-title" class="editor-input" placeholder="New Mission Objective Name...">
-            <div class="editor-num-row">
-                <input type="number" id="edit-target" class="editor-input" placeholder="Target Volume/Qty" style="margin-bottom:0;">
-                <input type="number" id="edit-reward" class="editor-input" placeholder="Base XP Reward" style="margin-bottom:0;">
+            <div class="edit-row">
+                <input type="text" id="custom-name-input" class="editor-input-field" placeholder="Write custom mission title...">
             </div>
-            <button class="editor-btn" onclick="saveCustomMissionData()">Apply Updates to Module</button>
+            <div class="edit-row">
+                <input type="number" id="custom-target-input" class="editor-input-field" placeholder="Target Vol">
+                <input type="number" id="custom-reward-input" class="editor-input-field" placeholder="Base XP">
+            </div>
+            <button class="apply-btn" onclick="saveCustomMissionData()">Save Objective Parameters</button>
         </div>
 
-        <!-- Intensity Console -->
+        <!-- Multiplier Selection Slider -->
         <div class="intensity-console">
             <div class="console-meta">
-                <span>DAILY MULTIPLIER SELECTION</span>
+                <span>DAILY INTENSITY SETTING</span>
                 <span id="intensity-badge">⚡ STANDARD EFFORT (1.0x)</span>
             </div>
             <input type="range" id="intensity-slider" class="console-slider" min="0.5" max="3" step="0.5" value="1" oninput="changeIntensity(this.value)">
         </div>
 
-        <!-- Objectives Map -->
+        <!-- Neural Task Items Mapping -->
         <div id="task-pushups" onclick="triggerTask('pushups', 'str')" class="neural-task-node">
             <div>
-                <div id="title-pushups" class="task-title-line">Calisthenics Conditioning (Push-ups)</div>
-                <div id="reward-pushups" class="task-yield-meta">Yield: Loading...</div>
+                <div id="title-pushups" class="task-title-line">Push-ups</div>
+                <div id="reward-pushups" class="task-yield-meta">Yield...</div>
             </div>
-            <div id="count-pushups" class="task-progress-status">0 / 100</div>
+            <div id="count-pushups" class="task-progress-status">0/0</div>
         </div>
 
         <div id="task-situps" onclick="triggerTask('situps', 'vit')" class="neural-task-node">
             <div>
-                <div id="title-situps" class="task-title-line">Core Endurance (Sit-ups)</div>
-                <div id="reward-situps" class="task-yield-meta">Yield: Loading...</div>
+                <div id="title-situps" class="task-title-line">Sit-ups</div>
+                <div id="reward-situps" class="task-yield-meta">Yield...</div>
             </div>
-            <div id="count-situps" class="task-progress-status">0 / 100</div>
+            <div id="count-situps" class="task-progress-status">0/0</div>
         </div>
 
         <div id="task-squats" onclick="triggerTask('squats', 'agi')" class="neural-task-node">
             <div>
-                <div id="title-squats" class="task-title-line">Lower Body Foundation (Squats)</div>
-                <div id="reward-squats" class="task-yield-meta">Yield: Loading...</div>
+                <div id="title-squats" class="task-title-line">Squats</div>
+                <div id="reward-squats" class="task-yield-meta">Yield...</div>
             </div>
-            <div id="count-squats" class="task-progress-status">0 / 100</div>
+            <div id="count-squats" class="task-progress-status">0/0</div>
         </div>
 
         <div id="task-running" onclick="triggerTask('running', 'vit')" class="neural-task-node">
             <div>
-                <div id="title-running" class="task-title-line">Cardio Capacity (Running)</div>
-                <div id="reward-running" class="task-yield-meta">Yield: Loading...</div>
+                <div id="title-running" class="task-title-line">Running</div>
+                <div id="reward-running" class="task-yield-meta">Yield...</div>
             </div>
-            <div id="count-running" class="task-progress-status">0 / 10 KM</div>
+            <div id="count-running" class="task-progress-status">0/0</div>
         </div>
 
         <div id="task-study" onclick="triggerTask('study', 'int')" class="neural-task-node">
             <div>
-                <div id="title-study" class="task-title-line">🧠 Cognitive Deep Work (Study Session)</div>
-                <div id="reward-study" class="task-yield-meta">Yield: Loading...</div>
+                <div id="title-study" class="task-title-line">Study Session</div>
+                <div id="reward-study" class="task-yield-meta">Yield...</div>
             </div>
-            <div id="count-study" class="task-progress-status">0 / 1 Hr</div>
+            <div id="count-study" class="task-progress-status">0/0</div>
         </div>
     </div>
 
-    <!-- ACTION CONTROLS -->
+    <!-- CONTROLS -->
     <div class="terminal-actions-row">
         <button class="core-btn btn-ambient" onclick="clearDailyQuests()">Cycle Daily Objectives Only</button>
         <button class="core-btn btn-destruct" onclick="systemResetToZero()">💥 Absolute Data Reset To Zero</button>
@@ -608,19 +543,18 @@
 
     <script>
         const levelTitles = {
-            1: "NOVICE APPRENTICE (Foundation Stage)",
-            2: "PROACTIVE STRIVER (Developing Habits)",
-            3: "DISCIPLINED PRACTITIONER (Consistent Work)",
-            4: "SKILLED STRATEGIST (Expanding Boundaries)",
-            5: "HIGH PERFORMER (Elite Momentum)",
-            6: "ELITE ACHIEVER (Advanced Focus Blocks)",
-            7: "MASTER EXECUTOR (Optimized Performance)",
-            8: "EXPERT OPERATOR (Peak Condition)",
-            9: "VISIONARY LEADERSHIP TIER (Deep Impact)",
-            10: "ELITE PATHFINDER (Peak Personal Mastery)"
+            1: "NOVICE APPRENTICE (Level 1)",
+            2: "PROACTIVE STRIVER (Level 2)",
+            3: "DISCIPLINED PRACTITIONER (Level 3)",
+            4: "SKILLED STRATEGIST (Level 4)",
+            5: "HIGH PERFORMER (Level 5)",
+            6: "ELITE ACHIEVER (Level 6)",
+            7: "MASTER EXECUTOR (Level 7)",
+            8: "EXPERT OPERATOR (Level 8)",
+            9: "VISIONARY LEADERSHIP TIER (Level 9)",
+            10: "ELITE PATHFINDER (Level 10 Apex Mastery)"
         };
 
-        // Default Customizable Configs
         let customTargets = { pushups: 100, situps: 100, squats: 100, running: 10, study: 1 };
         let customRewards = { pushups: 10, situps: 10, squats: 10, running: 20, study: 25 };
         let customNames = {
@@ -632,54 +566,38 @@
         };
 
         let systemData = {
-            level: 1,
-            xp: 0,
-            xpMax: 100,
-            intensity: 1.0, 
+            level: 1, xp: 0, xpMax: 100, intensity: 1.0,
             stats: { str: 0, agi: 0, int: 0, vit: 0 },
             completed: { pushups: false, situps: false, squats: false, running: false, study: false }
         };
 
-        // Load Persistent Memory Storage
-        if (localStorage.getItem('monarchSystemConfigV2')) {
-            const saved = JSON.parse(localStorage.getItem('monarchSystemConfigV2'));
-            systemData = saved.systemData || systemData;
-            customTargets = saved.customTargets || customTargets;
-            customRewards = saved.customRewards || customRewards;
-            customNames = saved.customNames || customNames;
+        // Core Mobile Storage Verification Block
+        if (localStorage.getItem('monarchCoreMobileConfig')) {
+            try {
+                const savedPack = JSON.parse(localStorage.getItem('monarchCoreMobileConfig'));
+                if(savedPack.systemData) systemData = savedPack.systemData;
+                if(savedPack.customTargets) customTargets = savedPack.customTargets;
+                if(savedPack.customRewards) customRewards = savedPack.customRewards;
+                if(savedPack.customNames) customNames = savedPack.customNames;
+            } catch(e) { console.log("Memory recovery bypassed."); }
         }
 
         function changeIntensity(val) {
             systemData.intensity = parseFloat(val);
-            
-            const label = document.getElementById('intensity-badge');
-            if(val == 0.5) label.innerText = "🍃 CASUAL EFFORT (0.5x)";
-            else if(val == 1.0) label.innerText = "⚡ STANDARD EFFORT (1.0x)";
-            else if(val == 1.5) label.innerText = "🔥 HIGH PERFORMANCE (1.5x)";
-            else if(val == 2.0) label.innerText = "💀 ULTRADIAN FOCUS (2.0x)";
-            else if(val == 2.5) label.innerText = "👹 EXTENDED BREAKTHROUGH (2.5x)";
-            else if(val == 3.0) label.innerText = "👑 APEX EXECUTIVE LEVEL (3.0x)";
-
+            const badge = document.getElementById('intensity-badge');
+            if(val == 0.5) badge.innerText = "🍃 CASUAL EFFORT (0.5x)";
+            else if(val == 1.0) badge.innerText = "⚡ STANDARD EFFORT (1.0x)";
+            else if(val == 1.5) badge.innerText = "🔥 HIGH PERFORMANCE (1.5x)";
+            else if(val == 2.0) badge.innerText = "💀 ULTRADIAN FOCUS (2.0x)";
+            else if(val == 2.5) badge.innerText = "👹 EXTENDED BREAKTHROUGH (2.5x)";
+            else if(val == 3.0) badge.innerText = "👑 APEX EXECUTIVE LEVEL (3.0x)";
             drawSystemUI();
-        }
-
-        function updateAvatarGraphics(lvl) {
-            const avatarEl = document.getElementById('avatar-img');
-            if (lvl >= 10) {
-                avatarEl.innerText = "👑"; // Apex Master tier
-            } else if (lvl >= 6) {
-                avatarEl.innerText = "⚡"; // Elite level Aura
-            } else if (lvl >= 3) {
-                avatarEl.innerText = "🥷"; // Disciplined Operator
-            } else {
-                avatarEl.innerText = "👤"; // Base level human asset
-            }
         }
 
         function drawSystemUI() {
             document.getElementById('intensity-slider').value = systemData.intensity;
-            
             document.getElementById('display-lv').innerText = `LV. ${systemData.level}`;
+            document.getElementById('avatar-text-level').innerText = systemData.level;
             document.getElementById('xp-text').innerText = `${systemData.xp} / ${systemData.xpMax} XP`;
             document.getElementById('xp-bar').style.width = `${(systemData.xp / systemData.xpMax) * 100}%`;
             
@@ -688,68 +606,75 @@
             document.getElementById('stat-int').innerText = systemData.stats.int;
             document.getElementById('stat-vit').innerText = systemData.stats.vit;
 
-            updateAvatarGraphics(systemData.level);
-
-            const rankLabel = document.getElementById('display-rank');
-            if (systemData.level > 10) {
-                rankLabel.innerText = "PREMIUM EXPERT ACUMEN 👑";
+            // Profile Upgrading Photo Node Core Logic Color Shifting
+            const photoFrame = document.getElementById('photo-node');
+            if (systemData.level >= 10) {
+                document.documentElement.style.setProperty('--level-color', '#ff2a5f'); // Neon Crimson (Apex)
+                photoFrame.style.boxShadow = "0 0 30px #ff2a5f, inset 0 0 15px #ff2a5f";
+            } else if (systemData.level >= 6) {
+                document.documentElement.style.setProperty('--level-color', '#bc3ff7'); // Singularity Purple (Elite)
+                photoFrame.style.boxShadow = "0 0 25px #bc3ff7";
+            } else if (systemData.level >= 3) {
+                document.documentElement.style.setProperty('--level-color', '#fbbf24'); // Amber Gold (Disciplined)
+                photoFrame.style.boxShadow = "0 0 20px #fbbf24";
             } else {
-                rankLabel.innerText = levelTitles[systemData.level] || "NOVICE ENGINE";
+                document.documentElement.style.setProperty('--level-color', '#00f0ff'); // Cyan (Starter)
+                photoFrame.style.boxShadow = "0 0 15px #00f0ff";
             }
 
+            const rankLabel = document.getElementById('display-rank');
+            rankLabel.innerText = levelTitles[systemData.level] || "HIGH END MASTERY TIER 👑";
+
             Object.keys(systemData.completed).forEach(key => {
-                const element = document.getElementById(`task-${key}`);
+                const nodeElement = document.getElementById(`task-${key}`);
                 const titleElement = document.getElementById(`title-${key}`);
                 const rewardElement = document.getElementById(`reward-${key}`);
-                const countElement = document.getElementById(`count-${key}`);
+                const statusCountElement = document.getElementById(`count-${key}`);
                 
-                // Display Custom titles assigned by the user
                 titleElement.innerText = customNames[key];
-
+                
                 let adjustedTarget = Math.round(customTargets[key] * systemData.intensity);
-                if (adjustedTarget < 1) adjustedTarget = 1; 
+                if(adjustedTarget < 1) adjustedTarget = 1;
                 
                 const adjustedXp = Math.round(customRewards[key] * systemData.intensity);
                 const adjustedStatBonus = Math.max(1, Math.round(1 * systemData.intensity));
-                
-                const statName = key === 'pushups' ? 'STR' : key === 'situps' ? 'VIT' : key === 'squats' ? 'DISC' : key === 'running' ? 'VIT' : 'INT';
+                const shortStatLBL = key === 'pushups' ? 'STR' : key === 'situps' ? 'VIT' : key === 'squats' ? 'DISC' : key === 'running' ? 'VIT' : 'INT';
 
-                rewardElement.innerText = `Yield: +${adjustedXp} XP / +${adjustedStatBonus} ${statName}`;
+                rewardElement.innerText = `Yield: +${adjustedXp} XP / +${adjustedStatBonus} ${shortStatLBL}`;
 
                 if (systemData.completed[key]) {
-                    element.classList.add('secured');
-                    countElement.innerText = `${adjustedTarget}/${adjustedTarget}`;
+                    nodeElement.classList.add('secured');
+                    statusCountElement.innerText = `${adjustedTarget} / ${adjustedTarget}`;
                 } else {
-                    element.classList.remove('secured');
-                    countElement.innerText = `0/${adjustedTarget}`;
+                    nodeElement.classList.remove('secured');
+                    statusCountElement.innerText = `0 / ${adjustedTarget}`;
                 }
             });
 
-            saveToLocalStorage();
+            localStorage.setItem('monarchCoreMobileConfig', JSON.stringify({systemData, customTargets, customRewards, customNames}));
         }
 
-        function loadMissionToEditor() {
-            const currentSelected = document.getElementById('edit-select-node').value;
-            document.getElementById('edit-title').value = customNames[currentSelected];
-            document.getElementById('edit-target').value = customTargets[currentSelected];
-            document.getElementById('edit-reward').value = customRewards[currentSelected];
+        function loadMissionToInputs() {
+            const selectVal = document.getElementById('editor-select').value;
+            document.getElementById('custom-name-input').value = customNames[selectVal];
+            document.getElementById('custom-target-input').value = customTargets[selectVal];
+            document.getElementById('custom-reward-input').value = customRewards[selectVal];
         }
 
         function saveCustomMissionData() {
-            const currentSelected = document.getElementById('edit-select-node').value;
-            const targetTitle = document.getElementById('edit-title').value;
-            const targetVal = parseInt(document.getElementById('edit-target').value);
-            const targetReward = parseInt(document.getElementById('edit-reward').value);
+            const selectVal = document.getElementById('editor-select').value;
+            const newName = document.getElementById('custom-name-input').value;
+            const newTarget = parseInt(document.getElementById('custom-target-input').value);
+            const newReward = parseInt(document.getElementById('custom-reward-input').value);
 
-            if (!targetTitle || isNaN(targetVal) || isNaN(targetReward)) {
-                alert("Matrix Input Error: Please verify all custom parameters are filled correctly.");
+            if(!newName || isNaN(newTarget) || isNaN(newReward)) {
+                alert("Configuration Error: Please fill in all variables completely.");
                 return;
             }
 
-            customNames[currentSelected] = targetTitle;
-            customTargets[currentSelected] = targetVal;
-            customRewards[currentSelected] = targetReward;
-
+            customNames[selectVal] = newName;
+            customTargets[selectVal] = newTarget;
+            customRewards[selectVal] = newReward;
             drawSystemUI();
         }
 
@@ -775,9 +700,8 @@
 
                 const pod = document.getElementById('main-pod');
                 pod.classList.add('evolution-pulse');
-                setTimeout(() => pod.classList.remove('evolution-pulse'), 800);
+                setTimeout(() => pod.classList.remove('evolution-pulse'), 600);
             }
-
             drawSystemUI();
         }
 
@@ -786,18 +710,10 @@
             drawSystemUI();
         }
 
-        function saveToLocalStorage() {
-            const pack = { systemData, customTargets, customRewards, customNames };
-            localStorage.setItem('monarchSystemConfigV2', JSON.stringify(pack));
-        }
-
         function systemResetToZero() {
-            if (confirm("DATA PURGE ALERT:\nAre you sure you want to wipe all records back to ground zero?")) {
+            if (confirm("Reset everything back to ground level? All stats and configurations will clear.")) {
                 systemData = {
-                    level: 1,
-                    xp: 0,
-                    xpMax: 100,
-                    intensity: 1.0, 
+                    level: 1, xp: 0, xpMax: 100, intensity: 1.0,
                     stats: { str: 0, agi: 0, int: 0, vit: 0 },
                     completed: { pushups: false, situps: false, squats: false, running: false, study: false }
                 };
@@ -811,13 +727,14 @@
                     study: "🧠 Cognitive Deep Work (Study Session)"
                 };
                 changeIntensity(1.0);
-                loadMissionToEditor();
+                loadMissionToInputs();
             }
         }
 
-        // Initialize Module On Boot
-        changeIntensity(systemData.intensity);
-        loadMissionToEditor();
+        // Instant Standalone Initialization
+        drawSystemUI();
+        loadMissionToInputs();
     </script>
 </body>
 </html>
+
